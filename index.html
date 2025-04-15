@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desarrollo de aplicaciones web con ASP.NET Core MVC</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-dark" style="--bs-bg-opacity: .25;">
+    <div class="container">
+        <div class="fixed-header text-center">
+            <h2 class="main-title text-white">Desarrollo de aplicaciones web con ASP.NET Core MVC</h3>
+            <h4 class="subtitle text-white">Guía para iniciarte en el mundo del desarrollo de aplicaciones Web</h4>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8 content-area">
+                <section id="introduccion">
+                    <h2 class="section-title">Introducción</h2>
+                    <p>El desarrollo web moderno requiere frameworks robustos, escalables y seguros. <strong>ASP.NET</strong> Core se ha establecido como una de las opciones más potentes para la creación de aplicaciones web y APIs. Este blog técnico profundiza en ASP.NET Core MVC, proporcionando todo lo que necesitas para comenzar a desarrollar aplicaciones web profesionales con esta tecnología.</p>
+                </section>
+                
+                <section id="que-es">
+                    <h2 class="section-title">¿Qué es ASP.NET Core?</h2>
+                    <p><strong>ASP.NET Core</strong> es un framework de desarrollo web de código abierto, multiplataforma y de alto rendimiento creado por Microsoft. A diferencia de su predecesor, <strong>ASP.NET Framework, ASP.NET Core</strong> está diseñado para ejecutarse no solo en Windows sino también en <strong>macOS y Linux.</strong></p>
+                    <p>Sus características principales incluyen:</p>
+                    <ul>
+                        <li>Arquitectura modular y ligera</li>
+                        <li>Soporte para múltiples plataformas</li>
+                        <li>Alto rendimiento y escalabilidad</li>
+                        <li>Inyección de dependencias integrada</li>
+                        <li>Configuración unificada</li>
+                    </ul>
+                </section>
+                
+                <section id="caracteristicas">
+                    <h2 class="section-title">Características principales</h2>
+                    <p><strong>ASP.NET Core MVC</strong> proporciona una arquitectura basada en el patrón <strong>Modelo-Vista-Controlador</strong>, permitiendo una clara separación de responsabilidades en tu aplicación:</p>
+                    <ul>
+                        <li><strong>Modelos:</strong> Representan los datos de la aplicación y la lógica de negocio que determina cómo se pueden manipular.</li>
+                        <li><strong>Vistas:</strong> Muestran la interfaz de usuario y presentan los datos a los usuarios.</li>
+                        <li><strong>Controladores:</strong> Manejan las interacciones del usuario, trabajando con el modelo y seleccionando una vista para mostrar.</li>
+                    </ul>
+                    <div class="text-center mt-4 mb-4">
+                        <a href="image/mvc.jpg" target="_blank">
+                            <img src="image/mvc.jpg" alt="Diagrama MVC" class="img-fluid rounded shadow" style="max-width: 50%;">
+                        </a>
+                    </div>
+                    <p>Además, ofrece:</p>
+                    <ul>
+                        <li>Sistema de routing flexible</li>
+                        <li>Motor de vistas Razor potente y fácil de aprender</li>
+                        <li>Validación del lado del cliente y del servidor</li>
+                        <li>API web integrada y soporte para JSON</li>
+                        <li>Pruebas unitarias simplificadas</li>
+                    </ul>
+                </section>
+                
+                <section id="ventajas">
+                    <h2 class="section-title">Ventajas y casos de uso</h2>
+                    <p>Entre las principales ventajas de utilizar <strong>ASP.NET Core MVC </strong>encontramos:</p>
+                    <ul>
+                        <li>Alto rendimiento comparado con otros frameworks</li>
+                        <li>Seguridad mejorada y actualizaciones regulares</li>
+                        <li>Soporte para contenedores <strong>Docker</strong></li>
+                        <li>Excelente integración con<strong> Azure </strong>y otros servicios en la nube</li>
+                        <li>Gran comunidad y documentación extensa</li>
+                    </ul>
+                    <p>Los casos de uso ideales incluyen:</p>
+                    <ul>
+                        <li>Aplicaciones empresariales complejas</li>
+                        <li>Servicios <strong>RESTful </strong>y microservicios</li>
+                        <li>Aplicaciones en la nube</li>
+                        <li>Portales web que requieren alto rendimiento</li>
+                    </ul>
+                </section>
+                
+                <section id="requisitos">
+                    <h2 class="section-title">Requisitos del sistema</h2>
+                    <p>Para comenzar a desarrollar con <strong>ASP.NET Core MVC </strong>necesitarás:</p>
+                    <ul>
+                        <li><strong>.NET SDK</strong> (versión 8.0 o superior recomendada)</li>
+                        <li>Un IDE como <strong>Visual Studio, Visual Studio Code o JetBrains Rider</strong></li>
+                        <li>Conocimientos básicos de <strong>C# y HTML</strong></li>
+                        <li>Git para control de versiones (opcional pero recomendado)</li>
+                    </ul>
+                </section>
+                
+                <section id="instalacion">
+                    <h2 class="section-title">Instalación paso a paso</h2>
+                    <p>Sigue estos pasos para configurar tu entorno de desarrollo:</p>
+                    <ol>
+                        <li>Descarga e instala el <strong>.NET SDK</strong> desde <a href="https://dotnet.microsoft.com/es-es/download/visual-studio-sdks" target="_blank">el sitio oficial de Microsoft</a></li>
+                        <li>Instala <strong>Visual Studio 2022 o Visual Studio Code</strong> con la extensión C# <a href="https://learn.microsoft.com/es-es/visualstudio/install/install-visual-studio?view=vs-2022" target="_blank"> Consultando la guía de instalacion</a> </li>
+                        <li>Abre una terminal y verifica la instalación con el comando: <code>dotnet --version</code></li>
+                        <div class="text-center mt-4 mb-4">
+                            <a href="image/donetver.jpg" target="_blank">
+                                <img src="image/donetver.jpg" alt="donetver" class="img-fluid rounded shadow" style="max-width: 50%;">
+                            </a>
+                        </div>
+                        <li>Crea tu primer proyecto con: <code>dotnet new mvc -o MiAplicacionMVC</code></li>
+                        <div class="text-center mt-4 mb-4">
+                            <a href="image/myapp.jpg" target="_blank">
+                                <img src="image/myapp.jpg" alt="myapp" class="img-fluid rounded shadow" style="max-width: 50%;">
+                            </a>
+                        </div>
+                        <li>Navega al directorio del proyecto: <code>cd MiAplicacionMVC</code></li>
+                        <li>Ejecuta la aplicación: <code>dotnet run</code></li>
+                        <div class="text-center mt-4 mb-4">
+                            <a href="image/donetrun.jpg" target="_blank">
+                                <img src="image/donetrun.jpg" alt="donetrun" class="img-fluid rounded shadow" style="max-width: 50%;">
+                            </a>
+                        </div>
+                    </ol>
+                    <p>¡Y listo! Tu aplicación estará funcionando en <code>https://localhost:5001</code></p>
+                </section>
+
+                <!-- Integracion IA -->
+             <section id="agentes_ia">
+                <h2 class="section-title">Agentes IA</h2>
+                <p>Editor de código con agentes de IA inegrados</p>
+                <h5 class=""><strong>TRAE.AI</strong></h5>
+                <p>Es un IDE(Integrated Development Environment) potenciado con inteligencia artificial, lanzado por ByteDance (la empresa dueña de TikTok) a inicios de 2025​. Es una herramienta gratuita posicionándose como una alternativa a editores con IA como Cursor y Windsurf​</p>
+                <div class="text-center mt-4 mb-4">
+                    <a href="image/trae.jpg" target="_blank">
+                        <img src="image/trae.jpg" alt="trae" class="img-fluid rounded shadow" style="max-width: 50%;">
+                    </a>
+                </div>
+             </section>
+
+            </div>
+            
+            <!-- Contenido -->
+            <div class="bg bf-primary col-lg-4">
+                <div class="sidebar-container">
+                    <div class="sidebar">
+                        <h2 class="text-white">Contenido</h2>
+                        <ul>
+                            <li><a href="#introduccion">Introducción</a></li>
+                            <li><a href="#que-es">¿Qué es ASP.NET Core?</a></li>
+                            <li><a href="#caracteristicas">Características principales</a></li>
+                            <li><a href="#ventajas">Ventajas y casos de uso</a></li>
+                            <li><a href="#requisitos">Requisitos del sistema</a></li>
+                            <li><a href="#instalacion">Instalación paso a paso</a></li>
+                            <li><a href="#agentes_ia">Agentes IA</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
