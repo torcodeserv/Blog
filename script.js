@@ -25,6 +25,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Obtener todos los enlaces de navegación
+    const navLinksNew = document.querySelectorAll('.nav-link');
+
+    // Agregar evento click a cada enlace
+    navLinksNew.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Obtener el id de la sección objetivo
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+
+            // Desplazamiento suave
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            // Actualizar clase active
+            navLinksNew.forEach(link => link.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
     // Añadir comportamiento de desplazamiento suave al hacer clic en los enlaces
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
