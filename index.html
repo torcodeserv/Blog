@@ -13,9 +13,9 @@
             <h2 class="main-title text-white">Desarrollo de aplicaciones web con ASP.NET Core MVC</h3>
             <h4 class="subtitle text-white">Guía para iniciarte en el mundo del desarrollo de aplicaciones Web</h4>
         </div>
-        <div class="col-lg-12 text-left content-area">
+        <div class="col-lg-12 text-left content-area form-control">
             <div class="row">
-                <div class="col-lg-9 content-are bg-secondary" style="height: 82vh; overflow-y: auto; --bs-bg-opacity: .25;">
+                <div class="col-lg-9 content-area bg-secondary " style="height: 82vh; overflow-y: auto; --bs-bg-opacity: .25;">
                     <section id="introduccion">
                         <h2 class="section-title">Introducción</h2>
                         <p class="text-left">El desarrollo web moderno requiere frameworks robustos, escalables y seguros. <strong>ASP.NET</strong> Core se ha establecido como una de las opciones más potentes para la creación de aplicaciones web y APIs. Este blog técnico profundiza en ASP.NET Core MVC, proporcionando todo lo que necesitas para comenzar a desarrollar aplicaciones web profesionales con esta tecnología.</p>
@@ -485,6 +485,98 @@ namespace ApplicacionWeb.Controllers
                             </xmp>
                         </div>
                     </section>
+                    <!-- Bootstrap -->
+                    <section id="bootstrap">
+                        <h2 class="section-title">Aplicando Bootstrap en ASP.NET</h2>
+                        <div class="text-center bg-secondary rounded shadow p-2">
+                            <h5 class="section-title text-white">Domina Bootstrap en ASP.NET Core MVC | en Minutos🚀</h5>
+                            <a href="https://www.youtube.com/watch?v=scCePgb-bNQ" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <br>
+                        <h3>Definición</h3>
+                        <p><strong>Bootstrap </strong> es un framework front-end de código abierto, gratuito y multiplataforma creado originalmente por Twitter (ahora mantenido por un equipo independiente) que facilita el desarrollo de aplicaciones web responsivas para adaptarse a distintos tamaños de pantalla.</p>
+                        <li>Encontrará toda la documentación de <strong>Bootstrap</strong> desde <a href="https://getbootstrap.com/" target="_blank">Su sitio oficial</a></li>
+                        <hr>
+
+                        
+                        <h2>Visual Studio 2022</h2>
+                        <p>En la carpeta <strong>Views/Shared</strong> encontramos un archivo de nombre <strong>_Layout.cshtml.</strong></p>
+                        <p>En la cabecera de este archivo esta el link de la cdn (Content Delivery Network) de bootstrap</p>
+
+                        <h4>Atributo Class en Bootstrap</h4>
+                        <p>Se utiliza para aplicar estilos CSS a los elementos HTML. Bootstrap proporciona una amplia variedad de clases predefinidas que se puede usar para estilizar los elementos de manera rápida y sencilla.</p>
+                        <p>Se representa asi: class="" y dentro de las comillas van las clases</p>
+
+                        <ul>
+                            <li><strong>class="bg-success"</strong> aplica el color verde de fondo de un elemento</li>
+                            <li><strong>class="border border-success"</strong> aplica el color verde al borde de un elemento</li>
+                            <li><strong>class="text-white"</strong> aplica el color blanco al texto de un elemento</li>
+                            <li><strong>class="text-center"</strong> aplicael texto centrado de un elemento</li>
+                            <li><strong>class="col-md-12"</strong> define una columna que ocupa el ancho completo de una fila en dispositivos</li>
+                            <li><strong>class="row"</strong> define una fila dentro del sistema de cuadrícula</li>
+                            <li><strong>class="form-group"</strong> se utiliza para estructurar los elementos de un formulario</li>
+                            <li><strong>class="form-control"</strong> aplica estilos predefinidos a los elementos de formulario</li>
+                            <li><strong>class="col-form-label"</strong> da formato a etiquetas de formulario junto a campos de entrada(input)</li>
+                            <li><strong>class="mt-3"</strong> agrega un margen superior de 1rem (aproximadamente 16px) al elemento</li>
+                            <li><strong>class="mb-3"</strong> agrega un margen inferior de 1rem (aproximadamente 16px) al elemento</li>
+                            <li><strong>class="p-2"</strong> agrega un espacio o padding a los lados del elemente (aproximadamente 8px) al elemento</li>
+                        </ul>
+                        
+                        <!-- Vista Create.cshtml -->
+                        <p><strong>Abrimos el archivo Create.cshtml de la carpeta Views/Productos</strong></p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <!-- codigo c# -->
+                            <xmp>
+        @model ApplicacionWeb.Models.Producto
+        
+        <div class="container border border-success" style="--bs-bg-opacity: .3;">
+            <div class="col-md-12">
+                <h1>Crear Producto</h1>
+                <form asp-action="Create" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="Nombre" class="p-2"></label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group col-md-2">
+                            <label asp-for="Precio" class="p-2"></label>
+                            <input asp-for="Precio" class="form-control" />
+                            <span asp-validation-for="Precio" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label asp-for="Stock" class="p-2"></label>
+                            <input asp-for="Stock" class="form-control" />
+                            <span asp-validation-for="Stock" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="FechaCaducidad" class="p-2"></label>
+                            <input asp-for="FechaCaducidad" class="form-control" type="date" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="p-2" asp-for="Descripcion"></label>
+                            <textarea asp-for="Descripcion" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                        
+                    </div>
+                    
+                </form>
+            </div>
+            
+        </div>
+                            </xmp>
+                        </div>
+
+                                                   
+                    </section>
                 </div>
 
                 <!-- Contenido -->
@@ -502,6 +594,7 @@ namespace ApplicacionWeb.Controllers
                                 <li><a href="#instalacion" class="nav-link">Instalación paso a paso</a></li>
                                 <li><a href="#agentes_ia" class="nav-link">Agentes IA</a></li>
                                 <li><a href="#proyectoasp" class="nav-link">Proyecto ASP.NET</a></li>
+                                <li><a href="#bootstrap" class="nav-link">Aplicando Bootstrap en ASP.NET</a></li>
                             </ul>
                         </div>
                     </div>
