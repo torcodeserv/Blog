@@ -808,7 +808,219 @@ namespace ApplicacionWeb.Controllers
 
                         </div>
                     </section>
+                       
+                    <!-- Migraciones -->
+                     <br>
+                     <hr>
+                    <section id="migraciones">
+                        
+                        
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">👨‍💻La TÉCNICA de MIGRACIONES que REVOLUCIONARÁ tus PROYECTOS | Sin COMPLICACIONES 🔥</h5>
+                            <a href="https://www.youtube.com/watch?v=veKNqUU23RM" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <br>
+                        
+                        <h2 class="section-title">Migraciones</h2>
+                        <p>
+                            Las migraciones son una forma de mantener la estructura de la base de datos sincronizada con el modelo de datos de una aplicación. 
+                            Permiten crear, modificar y eliminar tablas y columnas en la base de datos a medida que cambian los requisitos del modelo.
+                            Entity Framework Core (EF Core) proporciona un sistema de migraciones que facilita este proceso.
+                        </p>
+                        <ul>
+                            <li>Cada cambio en el modelo de datos se registra como una migración, permitiendo un historial de modificaciones en la base de datos</li>
+                            <li>Las migraciones pueden ser aplicadas a la base de datos mediante comandos de la línea de comandos o desde el código</li>
+                            <li>Las migraciones permiten revertir cambios en la base de datos, facilitando la gestión de versiones</li>
+                            <li>Las migraciones pueden ser generadas automáticamente a partir de cambios en el modelo de datos, lo que ahorra tiempo y esfuerzo</li>
+                            <li>Las migraciones pueden ser personalizadas para adaptarse a requisitos específicos, como la creación de índices o la modificación de datos existentes</li>
+                            <li>Las migraciones son una herramienta poderosa para mantener la integridad y la consistencia de la base de datos a lo largo del ciclo de vida de una aplicación</li>
+                        </ul>
+                        <hr>
+                       
+                        <h3 class="section-title">Preparando el Entorno</h3>
+
+                        <!-- Paquetes nuget -->
+                        <h4 class="section-title">Los Paquetes NuGet</h4>
+                        <p>Los paquetes NuGet son una forma de distribuir y compartir bibliotecas y herramientas para .NET. 
+                            En este caso, se utilizan paquetes NuGet para trabajar con PostgreSQL y Entity Framework Core (EF Core).
+                            Estos paquetes proporcionan las bibliotecas necesarias para interactuar con la base de datos y realizar 
+                            operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en las entidades del modelo.
+                        </p>
                             
+                        <p>Para trabajar con la Base de Datos PostgreSQL en ASP.NET Core, es necesario instalar los siguientes paquetes NuGet</p>
+                            <ul>
+                                <li><strong>Npgsql.EntityFrameworkCore.PostgreSQL</strong> - sirve como el proveedor de base de datos para Entity Framework Core (EF Core) cuando se utiliza con PostgreSQL.</li>
+                                <li><strong>Microsoft.EntityFrameworkCore.Tools</strong> - son una serie de herramientas de línea de comandos (CLI) y extensión de Visual Studio que simplifican el desarrollo de aplicaciones que usan Entity Framework Core (EF Core).</li>
+                                <li><strong>Microsoft.EntityFrameworkCore.Design</strong> - facilita la creación de modelos de base de datos y la gestión de migraciones durante el desarrollo</li>
+                            </ul> 
+                        <hr>
+                        
+                        <h4 class="section-title">La cadena de Conexión</h4>
+
+                        <p>La cadena de conexión es una cadena de texto que contiene la información necesaria para conectarse a una base de datos. 
+                            Incluye detalles como el nombre del servidor, el nombre de la base de datos, el usuario y la contraseña.
+                            En el caso de PostgreSQL, la cadena de conexión tiene un formato específico que incluye el nombre del host, el puerto,
+                            el nombre de la base de datos, el usuario y la contraseña.
+                            La cadena de conexión se utiliza en la configuración de la aplicación para establecer la conexión con la base de datos.
+                            En este caso, la cadena de conexión se almacena en el archivo <strong>appsettings.json</strong> y se utiliza en el archivo <strong>Program.cs</strong> para configurar el contexto de la base de datos.
+                        </p>
+                         <h5 class="section-title">Archivo appsettings.json </h5>
+                        <p>Agregarems la cadena de conexion a la Base de Datos</p>
+                        
+                        <!-- codigo Archivo appsettings -->
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <xmp>
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Database=puntoventaDB;Username=postgres;Password=tu_contraseña"
+  }
+}
+                            </xmp>
+
+                        </div>
+
+                        <h5 class="section-title">Creando la Base de Datos</h5>
+
+                        <h6><strong>PgAdmin</strong></h6>
+                        <p>PgAdmin es una herramienta de administración y desarrollo para PostgreSQL. 
+                            Proporciona una interfaz gráfica para interactuar con la base de datos, lo que facilita la creación, modificación y eliminación de tablas, así como la ejecución de consultas SQL.
+                            PgAdmin es una herramienta muy útil para los desarrolladores y administradores de bases de datos que trabajan con PostgreSQL.
+                            Puedes descargar PgAdmin desde su sitio oficial: <a href="https://www.pgadmin.org/download/" target="_blank">PgAdmin</a>
+                        </p>
+
+                        <hr>
+
+                        <h4 class="section-title">El Contexto de la Base de Datos</h4>
+                        <p>
+                            Es una clase que representa una sesión con la base de datos y permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en las entidades del modelo. 
+                            En este caso, el contexto de la base de datos se llama <strong>ApplicationDbContext</strong> y hereda de <strong>DbContext</strong>, que es la clase principal de Entity Framework Core (EF Core).
+                        </p>
+
+                        <h5 class="section-title">Archivo ApplicationDbContext.cs </h5>
+                        <p>Creamos una carpeta de nombre <strong>Data</strong> y creamos un archivo de nombre <strong>ApplicationDbContext.cs</strong></p>
+                        
+                        <!-- codigo Archivo ApplicationDbContext -->
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <xmp>
+using Microsoft.EntityFrameworkCore;
+using ApplicacionWeb.Models;
+
+namespace ApplicacionWeb.Data
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Producto> Productos { get; set; }
+    }
+}
+                            </xmp>
+
+                        </div>
+                        
+                        <h5 class="section-title">Entity Framework Core (EF Core)</h5>
+                        <p>Es un mapeador objeto-relacional (ORM) de código abierto, multiplataforma y ligero, diseñado para trabajar con bases 
+                            de datos desde aplicaciones .NET. Permite a los desarrolladores interactuar con bases de datos usando objetos .NET
+                            , simplificando el código de acceso a datos y permitiendo una mayor flexibilidad en la gestión de datos.
+                        </p>
+                        <h5 class="section-title">DbContext</h5>
+                        <p>Sirve como puente entre una aplicación ASP.NET Core y la base de datos. La clase ApplicationDbContext hereda de DbContext, 
+                            que es la clase principal de Entity Framework Core. Esta clase representa una sesión con la base de datos y puede ser 
+                            usada para consultar y guardar instancias de tus entidades.
+                        </p>
+                        <h5 class="section-title">DbSet</h5>
+                        <p>Es una propiedad dentro de una clase que extiende de DbContext en Entity Framework Core. Esto permite que Entity Framework Core sepa qué tablas debe crear 
+                            en la base de datos. El nombre "Productos" será el nombre de la tabla en la Base de Datos PostgreSQL.
+                        </p>
+                        
+                        <hr>
+
+                        <h4 class="section-title">El Modelo de Datos</h4>
+                        <p>
+                            Es una representación de los datos que se almacenan en la base de datos. En este caso, el modelo de datos se representa mediante la clase <strong>Producto</strong>, 
+                            que contiene las propiedades que corresponden a las columnas de la tabla en la base de datos. 
+                            Entity Framework Core (EF Core) utiliza este modelo para mapear los datos entre la base de datos y la aplicación.
+                            El modelo de datos se define como una clase que hereda de <strong>DbContext</strong> y contiene propiedades que representan las tablas de la base de datos.
+                            Cada propiedad de la clase representa una tabla en la base de datos y cada propiedad dentro de la clase representa una columna en esa tabla.
+                            Entity Framework Core (EF Core) utiliza este modelo para mapear los datos entre la base de datos y la aplicación.
+                            En este caso, la clase <strong>Producto</strong> representa una tabla en la base de datos que contiene información sobre los productos.
+                            Cada propiedad de la clase representa una columna en esa tabla y cada instancia de la clase representa una fila en la tabla.
+                            Entity Framework Core (EF Core) utiliza este modelo para mapear los datos entre la base de datos y la aplicación.
+                            La clase <strong>Producto</strong> contiene propiedades que representan las columnas de la tabla en la base de datos,
+                        </p>
+
+                        <h5 class="section-title">Archivo Producto.cs </h5>
+                        
+                        <!-- codigo Archivo Producto -->
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <xmp>
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace ApplicacionWeb.Models
+{
+    public class Producto
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "El nombre es obligatorio.")]
+        [StringLength(100, ErrorMessage = "El nombre no puede exceder los 100 caracteres.")]
+        public string Nombre { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "El precio es obligatorio.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0.")]
+        public decimal PrecioVenta { get; set; }
+
+        [Required(ErrorMessage = "El stock es obligatorio.")]
+        [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser negativo.")]
+        public int Stock { get; set; }
+
+        [Required(ErrorMessage = "El precio es obligatorio.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0.")]
+        public decimal PrecioCosto { get; set; }
+        public DateTime? FechaCaducidad { get; set; }
+
+        [StringLength(500, ErrorMessage = "La descripción no puede exceder los 500 caracteres.")]
+        public string? Descripcion { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
+    }
+}
+                            </xmp>
+
+                        </div>
+
+                        <h5 class="section-title">Archivo Program.cs </h5>
+                        <p>Modificar el archivo Program.cs para agregar el servicio de DbContext</p>
+                        
+                        <!-- codigo Archivo Program -->
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <xmp>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+                            </xmp>
+
+                        </div>
+
+                        <h4 class="section-title">Creando la Primera Migración</h4>
+                        <ul>
+                            <li>1. Abre la consola de NuGet en Visual Studio (Herramientas > Administrador de paquetes NuGet > Consola del Administrador
+                            de paquetes).</li>
+                            <li>2.	Ejecuta el siguiente comando: <strong>Add-Migration Inicial</strong></li>
+                            <li>3.	Ejecuta el siguiente comando: <strong>Update-Database</strong></li>
+                        </ul>
+                       
+
+                    </section>
                 </div>
 
                 <!-- Contenido -->
@@ -828,6 +1040,7 @@ namespace ApplicacionWeb.Controllers
                                 <li><a href="#proyectoasp" class="nav-link">Proyecto ASP.NET</a></li>
                                 <li><a href="#bootstrap" class="nav-link">Aplicando Bootstrap en ASP.NET</a></li>
                                 <li><a href="#basedatos" class="nav-link">Base de Datos PostgreSQL</a></li>
+                                <li><a href="#migraciones" class="nav-link">Migraciones</a></li>
                             </ul>
                         </div>
                     </div>
