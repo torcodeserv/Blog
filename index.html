@@ -814,7 +814,6 @@ namespace ApplicacionWeb.Controllers
                      <hr>
                     <section id="migraciones">
                         
-                        
                         <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
                             <h5 class="section-title text-white">👨‍💻La TÉCNICA de MIGRACIONES que REVOLUCIONARÁ tus PROYECTOS | Sin COMPLICACIONES 🔥</h5>
                             <a href="https://www.youtube.com/watch?v=veKNqUU23RM" target="_blank" class="btn btn-danger">
@@ -1021,6 +1020,273 @@ options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
                        
 
                     </section>
+                    <hr>
+                    <br>
+
+                    <!-- CRUD ASP.NET Core MVC + PostgreSQL -->
+                    <section id="crud">
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">👨‍💻CRUD en ASP.NET Core MVC | PostgreSQL : Más FÁCIL de lo que Piensas | Tutorial 2025🔥</h5>
+                            <a href="https://www.youtube.com/watch?v=veKNqUU23RM" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <br>
+                        <h2 class="section-title">CRUD ASP.NET Core MVC + PostgreSQL</h2>
+                        <p>El CRUD (Crear, Leer, Actualizar, Eliminar) es una de las operaciones más comunes en el desarrollo de aplicaciones web. 
+                            En este caso, se implementa un CRUD básico utilizando ASP.NET Core MVC y PostgreSQL como base de datos.
+                            A continuación se describen los pasos para implementar un CRUD básico en ASP.NET Core MVC utilizando PostgreSQL como base de datos.
+                        </p>
+                        <h3 class="section-title">Pasos para implementar un CRUD básico</h3>
+                        <ul>
+                            <li><strong>Create (Crear):</strong> Permite agregar un nuevo producto a la base de datos.</li>
+                            <li><strong>Read (Leer):</strong> Muestra la lista de productos almacenados.</li>
+                            <li><strong>Update (Actualizar):</strong> Permite modificar los datos de un producto existente.</li>
+                            <li><strong>Delete (Eliminar):</strong> Permite eliminar un producto de la base de datos.</li>
+                        </ul>
+                        <h5>El archivo <strong>ProductosController.cs</strong></h5>
+                        <p>Los métodos CRUD típicos son:</p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using Microsoft.AspNetCore.Mvc;
+using ApplicacionWeb.Models;
+using ApplicacionWeb.Data;
+
+namespace ApplicacionWeb.Controllers
+{
+    public class ProductosController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public ProductosController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: Producto - obtener la lista de productos almacenados en la base de datos
+        public IActionResult Index()
+        {
+            var productos = _context.Productos.ToList();
+            return View(productos);
+        }
+
+        // GET: Producto/Create - mostrar el formulario para crear un nuevo producto
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Producto/Create - crear un nuevo producto con los datos del formulario y almacenar en la base de datos
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Producto producto)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Productos.Add(producto);
+                _context.SaveChanges(); // Ensure changes are saved to the database
+                return RedirectToAction(nameof(Index));
+            }
+            return View(producto);
+        }
+
+        // GET: Producto/Edit/5 - mostrar los datos del producto seleccionando en el formulario para editar un producto existente
+        public IActionResult Edit(int id)
+        {
+            var producto = _context.Productos.Find(id); // Use Find to retrieve the entity by its primary key
+            if (producto == null)
+            {
+                return NotFound();
+            }
+            return View(producto);
+        }
+
+        // POST: Producto/Edit/5 - actualizar los datos del producto con los datos del formulario y almacenar en la base de datos
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Producto producto)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingProducto = _context.Productos.Find(id); // Retrieve the existing entity
+                if (existingProducto == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the properties of the existing entity
+                existingProducto.Nombre = producto.Nombre;
+                existingProducto.PrecioVenta = producto.PrecioVenta;
+                existingProducto.Stock = producto.Stock;
+                existingProducto.PrecioCosto = producto.PrecioCosto;
+                existingProducto.FechaCaducidad = producto.FechaCaducidad;
+                existingProducto.Descripcion = producto.Descripcion;
+                existingProducto.UpdatedAt = DateTime.UtcNow;
+
+                _context.SaveChanges(); // Save changes to the database
+                return RedirectToAction(nameof(Index));
+            }
+            return View(producto);
+        }
+
+        // GET: Producto/Delete/5 - mostrar el formulario para eliminar un producto existente
+        public IActionResult Delete(int id)
+        {
+            var producto = _context.Productos.Find(id); // Use Find to retrieve the entity by its primary key
+            if (producto == null)
+            {
+                return NotFound();
+            }
+            return View(producto);
+        }
+
+        // POST: Producto/Delete/5 - eliminar el producto seleccionado de la base de datos
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var producto = _context.Productos.Find(id); // Use Find to retrieve the entity by its primary key
+            if (producto != null)
+            {
+                _context.Productos.Remove(producto); // Remove the entity from the DbSet
+                _context.SaveChanges(); // Save changes to the database
+            }
+            return RedirectToAction(nameof(Index));
+        }
+    }
+}
+                            </xmp>
+                        </div>
+                        
+                        <h4>Ajustes en las Vistas de Productos</h4>
+                        <h5>El archivo <strong>Index.cshtml</strong></h5>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+@model IEnumerable<ApplicacionWeb.Models.Producto>
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <h1>Lista de Productos</h1>
+
+    <a asp-action="Create" class="btn btn-success">Crear Nuevo Producto</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>PrecioVenta</th>
+                <th>Stock</th>
+                <th>PrecioCosto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var producto = Model.ElementAt(i);
+                <tr>
+                    <td>@producto.Nombre</td>
+                    <td>@producto.PrecioVenta</td>
+                    <td>@producto.Stock</td>
+                    <td>@producto.PrecioCosto</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@producto.Id" class="btn btn-warning">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@producto.Id" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+                            </xmp>
+                        </div>
+
+                        <h5>El archivo <strong>Edit.cshtml</strong></h5>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+@model ApplicacionWeb.Models.Producto
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <div class="col-md-12">
+        <h1>Editar Producto</h1>
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Nombre"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="PrecioVenta">Precio de Venta</label>
+                    <input asp-for="PrecioVenta" class="form-control" />
+                    <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Stock"></label>
+                    <input asp-for="Stock" class="form-control" />
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="PrecioCosto">Precio de Costo</label>
+                    <input asp-for="PrecioCosto" class="form-control" />
+                    <span asp-validation-for="PrecioCosto" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="FechaCaducidad">Fecha de Caducidad</label>
+                    <input asp-for="FechaCaducidad" class="form-control" type="date" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Descripcion"></label>
+                    <textarea asp-for="Descripcion" class="form-control"></textarea>
+                </div>
+                <div class="mb-3 mt-3">
+                    <button type="submit" class="btn btn-success">Modificar</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+                            </xmp>
+                        </div>
+
+                        <h5>El archivo <strong>Delete.cshtml</strong></h5>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+@model ApplicacionWeb.Models.Producto
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <div class="col-md-4">
+
+        <h1>Eliminar Producto</h1>
+        <form asp-action="Delete" method="post">
+            <div class="row">
+                <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                <div class="form-group col-md-6">
+                    <strong>Nombre:</strong> @Model.Nombre
+                </div>
+                <div class="form-group col-md-3">
+                    <strong>PrecioVenta:</strong> @Model.PrecioVenta
+                </div>
+                <div class="form-group col-md-3">
+                    <strong>Stock:</strong> @Model.Stock
+                </div>
+                <div class="form-group col-md-3">
+                    <strong>PrecioCosto:</strong> @Model.PrecioCosto
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+                            </xmp>
+                        </div>
+                    </section>
                 </div>
 
                 <!-- Contenido -->
@@ -1041,6 +1307,7 @@ options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
                                 <li><a href="#bootstrap" class="nav-link">Aplicando Bootstrap en ASP.NET</a></li>
                                 <li><a href="#basedatos" class="nav-link">Base de Datos PostgreSQL</a></li>
                                 <li><a href="#migraciones" class="nav-link">Migraciones</a></li>
+                                <li><a href="#crud" class="nav-link">CRUD ASP.NET Core MVC + PostgreSQL</a></li>
                             </ul>
                         </div>
                     </div>
