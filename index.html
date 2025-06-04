@@ -1287,6 +1287,316 @@ namespace ApplicacionWeb.Controllers
                             </xmp>
                         </div>
                     </section>
+                    <hr>
+
+                    <!-- Exporta a PDF/Excel + Filtros y Paginación -->
+                    <section id="exportar">
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">👨‍💻Exporta a PDF/Excel + Filtros y Paginación en ASP.NET Core MVC 🔥 [Tutorial 2025]🔥</h5>
+                            <a href="https://www.youtube.com/watch?v=qtBMWSFV_P8" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <br>
+                        <h2 class="section-title">Paginación + Filtros</h2>
+                        <p>En este apartado, implementarenos la paginación y los filtros para hacer la búsqueda de productos por nombre. 
+                            En el archivo <strong>ProductosController.cs</strong>, implementaremos la lógica para manejar la paginación y los filtros.
+                        </p>
+                                                
+                        <h5>El archivo <strong>ProductosController.cs</strong></h5>
+                        <p>
+                            Modificaremoes el archivo ProductosController.cs para agregar la lógica de paginación y filtros:
+                        </p>
+                        
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using Microsoft.AspNetCore.Mvc;
+using ApplicacionWeb.Models;
+using ApplicacionWeb.Data;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using ClosedXML.Excel;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+
+namespace ApplicacionWeb.Controllers
+{
+    public class ProductosController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public ProductosController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        // Filtro para buscar productos por nombre y paginación
+        public async Task<IActionResult> Index(string searchString, int pageNumber = 1, int pageSize = 5)
+        {
+            var viewModel = new ProductoViewModel
+            {
+                SearchString = searchString,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            var query = _context.Productos.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(p => EF.Functions.Like(p.Nombre.ToLower(), $"%{searchString.ToLower()}%"));
+            }
+
+            var totalRecords = await query.CountAsync();
+            viewModel.TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+            viewModel.Productos = await query
+                .OrderBy(p => p.Nombre)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return View(viewModel);
+        }
+
+        Resto del codigo del controlador ...
+                            </xmp>
+                        </div>
+
+                        <h2 class="section-title">Exporta a PDF/Excel</h2>
+                        <p>En este apartado, aprenderemos a exportar datos a PDF y Excel en una aplicación ASP.NET Core MVC. 
+                            Utilizaremos bibliotecas como iText7 para PDF y ClosedXML para Excel, que facilitan la creación de los archivos en estos formatos.
+                        </p>
+                        <h3 class="section-title">Pasos para Exportar a PDF y Excel</h3>
+
+                        <p>Instalar las bibliotecas necesarias:</p>
+                        <ul>
+                            <li><strong>iText7</strong> para crear, editar y manipular archivos PDF en aplicaciones C# y .NET.</li>
+                            <li><strong>iText7 bouncy-castle-adapter</strong> sirve como un adaptador entre la biblioteca iText7 y la biblioteca de criptografía Bouncy Castle.</li>
+                            <li><strong>ClosedXML</strong> permite crear archivos de Excel sin la aplicación Excel.</li>
+                        </ul>
+
+                        <h5>El archivo <strong>ProductosController.cs</strong></h5>
+                        <p>
+                            Modificaremoes el archivo ProductosController.cs para agregar la lógica de exportar a PDF y Excel.:
+                        </p>
+                        
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+public IActionResult ExportToPdf()
+{
+    var productos = _context.Productos.ToList();
+
+    using (MemoryStream ms = new MemoryStream())
+    {
+        PdfWriter writer = new PdfWriter(ms);
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf);
+
+        // Agregar título
+        document.Add(new Paragraph("Lista de Productos")
+            .SetTextAlignment(TextAlignment.CENTER)
+            .SetFontSize(20));
+
+        // Crear tabla
+        Table table = new Table(4).UseAllAvailableWidth();
+
+        // Agregar encabezados
+        table.AddCell("Nombre");
+        table.AddCell("Precio Venta");
+        table.AddCell("Stock");
+        table.AddCell("Precio Costo");
+
+        // Agregar datos
+        foreach (var producto in productos)
+        {
+            table.AddCell(producto.Nombre);
+            table.AddCell(producto.PrecioVenta.ToString("#,##0.00"));
+            table.AddCell(producto.Stock.ToString());
+            table.AddCell(producto.PrecioCosto.ToString("#,##0.00"));
+        }
+
+        document.Add(table);
+        document.Close();
+
+        return File(ms.ToArray(), "application/pdf", "Productos.pdf");
+    }
+}
+
+public IActionResult ExportToExcel()
+{
+    var productos = _context.Productos.ToList();
+
+    using (var workbook = new XLWorkbook())
+    {
+        var worksheet = workbook.Worksheets.Add("Productos");
+
+        // Agregar encabezados
+        worksheet.Cell(1, 1).Value = "Nombre";
+        worksheet.Cell(1, 2).Value = "Precio Venta";
+        worksheet.Cell(1, 3).Value = "Stock";
+        worksheet.Cell(1, 4).Value = "Precio Costo";
+
+        // Dar formato al encabezado
+        var rango = worksheet.Range(1, 1, 1, 4);
+        rango.Style.Font.Bold = true;
+        rango.Style.Fill.BackgroundColor = XLColor.LightGray;
+
+        // Agregar datos
+        int row = 2;
+        foreach (var producto in productos)
+        {
+            worksheet.Cell(row, 1).Value = producto.Nombre;
+            worksheet.Cell(row, 2).Value = producto.PrecioVenta;
+            worksheet.Cell(row, 3).Value = producto.Stock;
+            worksheet.Cell(row, 4).Value = producto.PrecioCosto;
+
+            // Formato para las columnas de precio
+            worksheet.Cell(row, 2).Style.NumberFormat.Format = "#,##0.00";
+            worksheet.Cell(row, 4).Style.NumberFormat.Format = "#,##0.00";
+
+            row++;
+        }
+
+        // Autoajustar columnas
+        worksheet.Columns().AdjustToContents();
+
+        using (var ms = new MemoryStream())
+        {
+            workbook.SaveAs(ms);
+            return File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Productos.xlsx");
+        }
+    }
+}
+                            </xmp>
+                        </div>
+
+                        <br>
+
+                        <h4>Crearemos el archivo ProductoViewModel.cs</h4>
+                        <p>Su función es la de servir como un modelo de vista (ViewModel) que facilita 
+                            la interacción entre la lógica de la aplicación y la interfaz de usuario, especialmente en las vistas para mostrar 
+                            el listados de productos.</p>
+                        <h5>El archivo <strong>ProductoViewModel.cs</strong></h5>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+// Models/ProductoViewModel.cs
+namespace ApplicacionWeb.Models
+{
+    public class ProductoViewModel
+    {
+        // Contiene la lista de productos que se mostrarán en la vista
+        public IEnumerable<Producto> Productos { get; set; } = new List<Producto>();
+        public string SearchString { get; set; } = string.Empty;
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 5;
+        public int TotalPages { get; set; }
+    }
+}
+                            </xmp>
+                        </div>
+
+
+                        <br>
+                        <h5>El archivo <strong>Index.cshtml</strong></h5>
+                        <p>
+                            Modificaremos el archivo <strong>Index.cshtml</strong> para incluir un botón para exportar a PDF y Excel.
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+@model ApplicacionWeb.Models.ProductoViewModel
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <h1>Lista de Productos</h1>
+
+    <div class="row mb-3">
+        <div class="col">
+            <form method="get" class="row g-3">
+                <div class="col-auto">
+                    <input type="text" name="searchString" value="@Model.SearchString" class="form-control" placeholder="Buscar por nombre..." />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+                <div class="col-auto">
+                    <label class="col-form-label">Número de Registros a mostrar</label>
+                </div>
+                <div class="col-auto">
+                    <select name="pageSize" class="form-select" onchange="this.form.submit()">
+                        <option value="5" selected="@(Model.PageSize == 5)">5</option>
+                        <option value="10" selected="@(Model.PageSize == 10)">10</option>
+                        <option value="20" selected="@(Model.PageSize == 20)">20</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="col-auto">
+            <div class="btn-group" role="group">
+                <a asp-action="Create" class="btn btn-success">Crear Nuevo Producto</a>
+                <a asp-action="ExportToPdf" class="btn btn-danger">
+                    <i class="fas fa-file-pdf"></i> Exportar a PDF
+                </a>
+                <a asp-action="ExportToExcel" class="btn btn-success">
+                    <i class="fas fa-file-excel"></i> Exportar a Excel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th class="text-end">PrecioVenta</th>
+                <th class="text-center">Stock</th>
+                <th class="text-end">PrecioCosto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var producto in Model.Productos)
+            {
+                <tr>
+                    <td>@producto.Nombre</td>
+                    <td class="text-end">@producto.PrecioVenta.ToString("#,##0.00")</td>
+                    <td class="text-center">@producto.Stock</td>
+                    <td class="text-end">@producto.PrecioCosto.ToString("#,##0.00")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@producto.Id" class="btn btn-warning">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@producto.Id" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination">
+                <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { searchString = Model.SearchString, pageSize = Model.PageSize, pageNumber = Model.PageNumber - 1 })">Anterior</a>
+                </li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { searchString = Model.SearchString, pageSize = Model.PageSize, pageNumber = i })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.PageNumber == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { searchString = Model.SearchString, pageSize = Model.PageSize, pageNumber = Model.PageNumber + 1 })">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
+                            </xmp>
+                        </div>
+
+                    </section>
                 </div>
 
                 <!-- Contenido -->
@@ -1308,6 +1618,7 @@ namespace ApplicacionWeb.Controllers
                                 <li><a href="#basedatos" class="nav-link">Base de Datos PostgreSQL</a></li>
                                 <li><a href="#migraciones" class="nav-link">Migraciones</a></li>
                                 <li><a href="#crud" class="nav-link">CRUD ASP.NET Core MVC + PostgreSQL</a></li>
+                                <li><a href="#exportar" class="nav-link">Exportar a PDF/Excel + Filtros y Paginación</a></li>
                             </ul>
                         </div>
                     </div>
