@@ -249,7 +249,7 @@ namespace ApplicacionWeb.Controllers
     {
             public class ProductosController : Controller
         {
-            private static List<producto> _productos = new List<Producto>
+            private static List<Producto> _productos = new List<Producto>
             {
                 new Producto { Nombre = "Producto 1", Precio = 10.5m, Stock = 20 },
                 new Producto { Nombre = "Producto 2", Precio = 15.0m, Stock = 10 }
@@ -1297,6 +1297,7 @@ namespace ApplicacionWeb.Controllers
                                 <i class="bi bi-youtube"></i> Ver tutorial en YouTube
                             </a>
                         </div>
+                        
                         <br>
                         <h2 class="section-title">Paginación + Filtros</h2>
                         <p>En este apartado, implementarenos la paginación y los filtros para hacer la búsqueda de productos por nombre. 
@@ -1597,8 +1598,483 @@ namespace ApplicacionWeb.Models
                         </div>
 
                     </section>
+
+                    <br>
+                    <hr>
+                    <!-- Autenticación y Registro de Usuarios -->
+                    <section id="usuarios">
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">🔐Registro y Autenticación de Usuarios en ASP.NET Core MVC - Paso a Paso 🚀</h5>
+                            <a href="https://www.youtube.com/watch?v=zno2aNP-N5A" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <br>
+                        <h2 class="section-title">Registro y Autenticación de Usuarios</h2>
+                        <p>En este apartado, implementarenos la autenticación y el registro de usuarios en nuestra aplicación ASP.NET Core MVC. 
+                            Utilizaremos Identity, que es un sistema de autenticación y autorización para aplicaciones ASP.NET Core.
+                            Identity proporciona una forma sencilla de manejar el registro, inicio de sesión, recuperación de contraseñas y más.
+                        </p>
+                        <h3 class="section-title">Bibliotecas y Dependencias</h3>  
+                        <p>Para implementar la autenticación y el registro de usuarios, utilizaremos las siguientes bibliotecas:</p>
+                        <ul>
+                            <li><strong>Microsoft.AspNetCore.Identity.EntityFrameworkCore</strong>: Proporciona la funcionalidad de Identity para 
+                                Entity Framework Core. Esto permite a las aplicaciones ASP.NET Core manejar usuarios, roles, contraseñas y otros 
+                                aspectos de seguridad de forma más eficiente y segura, aprovechando las capacidades de Entity Framework Core para 
+                                la persistencia de datos. 
+                            </li>
+                            <li><strong>BCrypt.Net-Core</strong>: Implementa el cifrado de contraseñas utilizando el algoritmo BCrypt. Es un componente 
+                                de ASP.NET Core, se utiliza principalmente para el hash (algoritmo matemático) de contraseñas de manera segura y eficiente. 
+                                Este algoritmo de hash, basado en Blowfish (algoritmo de cifrado de bloques simétrico), es ampliamente reconocido por su resistencia a ataques de fuerza bruta y ataques
+                                de diccionario debido a su naturaleza intrínsecamente lenta. En ASP.NET Core, facilita la protección de las contraseñas 
+                                almacenadas en base de datos, mejorando la seguridad de la aplicación. 
+                            </li>
+                        </ul> 
+                        
+                        <hr>
+                        <h4><strong>Creando el Modelo de datos</strong></h4>            
+                        <h5>El archivo <strong>ApplicationUser.cs</strong></h5>
+                        <p>
+                            El archivo <strong>ApplicationUser.cs</strong> define un modelo de usuario personalizado que hereda de 
+                            <strong>IdentityUser</strong>. Este modelo se utiliza para representar a los usuarios en la base de datos 
+                            y puede incluir propiedades adicionales según las necesidades de la aplicación.
+                        </p>
+
+                        <br>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using Microsoft.AspNetCore.Identity;
+using System;
+
+namespace ApplicacionWeb.Models
+{
+    public class ApplicationUser : IdentityUser
+    {
+        public string Nombre { get; set; }
+        public DateTime FechaRegistro { get; set; }
+    }
+}
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <h5>El archivo <strong>RegisterViewModel.cs</strong></h5>
+                        <p>
+                            El archivo <strong>RegisterViewModel.cs</strong> define un modelo de vista que se utiliza para el registro de usuarios. 
+                            Este modelo contiene las propiedades necesarias para capturar la información del usuario durante el proceso de registro.
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using System.ComponentModel.DataAnnotations;
+
+namespace ApplicacionWeb.Models
+{
+    public class RegisterViewModel
+    {
+        [Required(ErrorMessage = "El email es requerido")]
+        [EmailAddress(ErrorMessage = "Email no válido")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "El nombre es requerido")]
+        public string Nombre { get; set; }
+
+        [Required(ErrorMessage = "La contraseña es requerida")]
+        [StringLength(100, ErrorMessage = "La {0} debe tener al menos {2} caracteres.", MinimumLength = 8)]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+        public string ConfirmPassword { get; set; }
+    }
+}
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <h5>El archivo <strong>LoginViewModel.cs</strong></h5>
+                        <p>
+                            El archivo <strong>LoginViewModel.cs</strong> define un modelo de vista que se utiliza para el inicio de sesión de usuarios. 
+                            Este modelo contiene las propiedades necesarias para capturar la información del usuario durante el proceso de inicio de sesión.                            
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using System.ComponentModel.DataAnnotations;
+
+namespace ApplicacionWeb.Models
+{
+    public class LoginViewModel
+    {
+        [Required(ErrorMessage = "El email es requerido")]
+        [EmailAddress(ErrorMessage = "Email no válido")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "La contraseña es requerida")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
+    }
+}
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <hr>
+                        <h4><strong>Creando el Controlador</strong></h4>            
+                        <h5>El archivo <strong>AccountController.cs</strong></h5>
+                        <p>
+                            El archivo <strong>AccountController.cs</strong> es el controlador que maneja las acciones relacionadas con la autenticación 
+                            y el registro de usuarios. Este controlador utiliza los modelos de vista definidos anteriormente para capturar la información 
+                            del usuario y realizar las operaciones de autenticación. 
+                            Además, el controlador proporciona la lógica para registrar nuevos usuarios y autenticar al usuario existente.                            
+                        </p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using ApplicacionWeb.Models;
+
+namespace SecureWebApp.Controllers
+{
+    public class AccountController : Controller
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
+        public AccountController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Nombre = model.Nombre,
+                    FechaRegistro = DateTime.UtcNow
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(
+                    model.Email,
+                    model.Password,
+                    model.RememberMe,
+                    lockoutOnFailure: true);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                if (result.IsLockedOut)
+                {
+                    return View("Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Intento de inicio de sesión no válido.");
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+    }
+}
+                            </xmp>
+                        </div>
+                        
+                        <br>
+                        <hr>
+                        <h4><strong>Actualizar el contexto de la base de datos</strong></h4>            
+                        <h5>El archivo <strong>ApplicationDbContext.cs</strong></h5>
+                        <p>
+                            Actualizaremos el archivo <strong>ApplicationDbContext.cs</strong> para heredar de <strong>IdentityDbContext<ApplicationUser></strong>.
+                            Esto permite que el contexto de la base de datos maneje la autenticación y autorización de usuarios utilizando
+                            el modelo de usuario personalizado <strong>ApplicationUser</strong>.
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using Microsoft.EntityFrameworkCore;
+using ApplicacionWeb.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using ApplicacionWeb.Models;
+
+namespace ApplicacionWeb.Data
+{
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> //1.	Hereda de IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            // Configurar el esquema para PostgreSQL
+            builder.HasDefaultSchema("public");
+
+            // Asegurarse de que las tablas usen el formato correcto para PostgreSQL
+            foreach (var entity in builder.Model.GetEntityTypes())
+            {
+                // Reemplazar puntos por guiones bajos en los nombres de tabla
+                var tableName = entity.GetTableName().Replace(".", "_");
+                entity.SetTableName(tableName);
+            }
+        }
+
+        public DbSet<Producto> Productos { get; set; }
+    }
+}
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <hr>
+                        <h4><strong>Creando las Vistas</strong></h4>
+                        <h5>El archivo <strong>Register.cshtml</strong></h5>
+                        <p>
+                            El archivo <strong>Register.cshtml</strong> es la vista que se utiliza para el registro de nuevos usuarios. 
+                            Esta vista utiliza el modelo de vista <strong>RegisterViewModel</strong> para capturar la información del 
+                            usuario durante el proceso de registro.
+                        </p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+    @model ApplicacionWeb.Models.RegisterViewModel
+
+    <h2>Registro</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-controller="Account" asp-action="Register" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
+                <div class="form-group">
+                    <label asp-for="Nombre"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+            </form>
+        </div>
+    </div> 
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <h5>El archivo <strong>Login.cshtml</strong></h5>
+                        <p>
+                            El archivo <strong>Login.cshtml</strong> es la vista que se utiliza para el inicio de sesión de usuarios. 
+                            Esta vista utiliza el modelo de vista <strong>LoginViewModel</strong> para capturar la información del 
+                            usuario durante el proceso de inicio de sesión.
+                        </p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+    @model ApplicacionWeb.Models.LoginViewModel
+
+    <h2>Iniciar Sesión</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-controller="Account" asp-action="Login" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="RememberMe" />
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div> 
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <h5>El archivo <strong>_Layout.cshtml</strong></h5>
+                        <p>
+                            Modificaremos el archivo <strong>_Layout.cshtml</strong> para incluir enlaces a las páginas de registro e inicio de sesión.
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+    <ul class="navbar-nav">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li class="nav-item">
+                <span class="nav-link text-white">Hola, @User.Identity.Name!</span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
+            </li>
+            <li class="nav-item">
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="btn btn-link nav-link text-dark">Cerrar Sesión</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="Account" asp-action="Register">Registro</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="Account" asp-action="Login">Iniciar Sesión</a>
+            </li>
+        }
+    </ul>
+                            </xmp>
+                        </div>
+
+                                                <br>
+                        <h5>El archivo <strong>Program.cs</strong></h5>
+                        <p>
+                            Modificaremos el archivo <strong>Program.cs</strong> para configurar los servicios de Identity y la autenticación de usuarios.
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+    builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    // Configuración de contraseña
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireDigit = true;
+
+    // Configuración de bloqueo
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+
+    // Configuración de usuario
+    options.User.RequireUniqueEmail = true;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+.. codigo existente ...
+
+app.UseAuthentication();
+
+.. codigo existente ...
+                            </xmp>
+                        </div>
+
+                                                <br>
+                        <hr>
+                        <h4 class="section-title">Creando la Segunda Migración</h4>
+                        <p>
+                            Después de actualizar el contexto de la base de datos, debemos crear una migración para aplicar los cambios a la base de datos.
+                            Ejecuta el siguiente comando en la consola del administrador de paquetes:
+                        </p>
+                        <ul>
+                            <li>1. Abre la consola de NuGet en Visual Studio (Herramientas > Administrador de paquetes NuGet > Consola del Administrador
+                            de paquetes).</li>
+                            <li>2.	Ejecuta el siguiente comando: <strong>Add-Migration Usuarios</strong></li>
+                            <li>3.	Ejecuta el siguiente comando: <strong>Update-Database</strong></li>
+                        </ul>
+                        <p>
+                            Esto creará una migración llamada "Usuarios" y aplicará los cambios a la base de datos, creando las tablas necesarias para Identity.
+                        </p>
+                    </section>
+                    
+                </div>
+                
                 <!-- Contenido -->
                 <div class="col-lg-3">
                     <div class="sidebar">
@@ -1619,6 +2095,7 @@ namespace ApplicacionWeb.Models
                                 <li><a href="#migraciones" class="nav-link">Migraciones</a></li>
                                 <li><a href="#crud" class="nav-link">CRUD ASP.NET Core MVC + PostgreSQL</a></li>
                                 <li><a href="#exportar" class="nav-link">Exportar a PDF/Excel + Filtros y Paginación</a></li>
+                                <li><a href="#usuarios" class="nav-link">Registro y Autenticación de Usuarios</a></li>
                             </ul>
                         </div>
                     </div>
