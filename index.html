@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desarrollo de aplicaciones web con ASP.NET Core MVC</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-dark" style="--bs-bg-opacity: .25;">
+    <div class="container">
+        <div class="fixed-header text-center">
+            <h2 class="main-title text-white">Desarrollo de aplicaciones web con ASP.NET Core MVC</h3>
+            <h4 class="subtitle text-white">Guía para iniciarte en el mundo del desarrollo de aplicaciones Web</h4>
+        </div>
+        <div class="col-lg-12 text-left content-area form-control">
+            <div class="row">
+                <div class="col-lg-9 content-area bg-secondary " style="height: 82vh; overflow-y: auto; --bs-bg-opacity: .25;">
+                    <section id="introduccion">
+                        <h2 class="section-title">Introducción</h2>
+                        <p class="text-left">El desarrollo web moderno requiere frameworks robustos, escalables y seguros. <strong>ASP.NET</strong> Core se ha establecido como una de las opciones más potentes para la creación de aplicaciones web y APIs. Este blog técnico profundiza en ASP.NET Core MVC, proporcionando todo lo que necesitas para comenzar a desarrollar aplicaciones web profesionales con esta tecnología.</p>
+                    </section>
+
+                    <!-- Definicion ASP.NET Core MVC, caracteristicas, ventajas -->
+                    <section id="que-es">
+                        <h2 class="section-title">¿Qué es ASP.NET Core?</h2>
+                        <p><strong>ASP.NET Core</strong> es un framework de desarrollo web de código abierto, multiplataforma y de alto rendimiento creado por Microsoft. A diferencia de su predecesor, <strong>ASP.NET Framework, ASP.NET Core</strong> está diseñado para ejecutarse no solo en Windows sino también en <strong>macOS y Linux.</strong></p>
+                        <p>Sus características principales incluyen:</p>
+                        <ul>
+                            <li>Arquitectura modular y ligera</li>
+                            <li>Soporte para múltiples plataformas</li>
+                            <li>Alto rendimiento y escalabilidad</li>
+                            <li>Inyección de dependencias integrada</li>
+                            <li>Configuración unificada</li>
+                        </ul>
+                    </section>
+                    <section id="caracteristicas">
+                        <h2 class="section-title">Características principales</h2>
+                        <p><strong>ASP.NET Core MVC</strong> proporciona una arquitectura basada en el patrón <strong>Modelo-Vista-Controlador</strong>, permitiendo una clara separación de responsabilidades en tu aplicación:</p>
+                        <ul>
+                            <li><strong>Modelos:</strong> Representan los datos de la aplicación y la lógica de negocio que determina cómo se pueden manipular.</li>
+                            <li><strong>Vistas:</strong> Muestran la interfaz de usuario y presentan los datos a los usuarios.</li>
+                            <li><strong>Controladores:</strong> Manejan las interacciones del usuario, trabajando con el modelo y seleccionando una vista para mostrar.</li>
+                        </ul>
+                        <div class="text-center mt-4 mb-4">
+                            <a href="image/mvc.jpg" target="_blank">
+                                <img src="image/mvc.jpg" alt="Diagrama MVC" class="img-fluid rounded shadow" style="max-width: 50%;">
+                            </a>
+                        </div>
+                        <p>Además, ofrece:</p>
+                        <ul>
+                            <li>Sistema de routing flexible</li>
+                            <li>Motor de vistas Razor potente y fácil de aprender</li>
+                            <li>Validación del lado del cliente y del servidor</li>
+                            <li>API web integrada y soporte para JSON</li>
+                            <li>Pruebas unitarias simplificadas</li>
+                        </ul>
+                    </section>
+                    
+                    <section id="ventajas">
+                        <h2 class="section-title">Ventajas y casos de uso</h2>
+                        <p>Entre las principales ventajas de utilizar <strong>ASP.NET Core MVC </strong>encontramos:</p>
+                        <ul>
+                            <li>Alto rendimiento comparado con otros frameworks</li>
+                            <li>Seguridad mejorada y actualizaciones regulares</li>
+                            <li>Soporte para contenedores <strong>Docker</strong></li>
+                            <li>Excelente integración con<strong> Azure </strong>y otros servicios en la nube</li>
+                            <li>Gran comunidad y documentación extensa</li>
+                        </ul>
+                        <p>Los casos de uso ideales incluyen:</p>
+                        <ul>
+                            <li>Aplicaciones empresariales complejas</li>
+                            <li>Servicios <strong>RESTful </strong>y microservicios</li>
+                            <li>Aplicaciones en la nube</li>
+                            <li>Portales web que requieren alto rendimiento</li>
+                        </ul>
+                    </section>
+                    
+                    <!-- Requisitos, Instalacion, creacion de tu primer aplicación -->
+                    <section id="requisitos">
+                        <h2 class="section-title">Requisitos del sistema</h2>
+                        <p>Para comenzar a desarrollar con <strong>ASP.NET Core MVC </strong>necesitarás:</p>
+                        <ul>
+                            <li><strong>.NET SDK</strong> (versión 8.0 o superior recomendada)</li>
+                            <li>Un IDE como <strong>Visual Studio, Visual Studio Code o JetBrains Rider</strong></li>
+                            <li>Conocimientos básicos de <strong>C# y HTML</strong></li>
+                            <li>Git para control de versiones (opcional pero recomendado)</li>
+                        </ul>
+                    </section>
+                    
+                    <section id="instalacion">
+                        <h2 class="section-title">Instalación paso a paso y creación de tu primer aplicación</h2>
+                        <p>Sigue estos pasos para configurar tu entorno de desarrollo:</p>
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">⚡¡Domina el desarrollo web con Visual Studio 2022 y Agentes de IA! 🔥 No te quedes atrás.</h5>
+                            <a href="https://www.youtube.com/watch?v=_zE2ApAdjCA" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <ol>
+                            <li>Descarga e instala el <strong>.NET SDK</strong> desde <a href="https://dotnet.microsoft.com/es-es/download/visual-studio-sdks" target="_blank">el sitio oficial de Microsoft</a></li>
+                            <li>Instala <strong>Visual Studio 2022 o Visual Studio Code</strong> con la extensión C# <a href="https://learn.microsoft.com/es-es/visualstudio/install/install-visual-studio?view=vs-2022" target="_blank"> Consulte la guía de instalacion</a> </li>
+                            <li>Abre una terminal y verifica la instalación con el comando: <code>dotnet --version</code></li>
+                            <div class="text-center mt-4 mb-4">
+                                <a href="image/donetver.jpg" target="_blank">
+                                    <img src="image/donetver.jpg" alt="donetver" class="img-fluid rounded shadow" style="max-width: 50%;">
+                                </a>
+                            </div>
+                            <li>Crea tu primer proyecto con: <code>dotnet new mvc -o MiAplicacionMVC</code></li>
+                            <div class="text-center mt-4 mb-4">
+                                <a href="image/myapp.jpg" target="_blank">
+                                    <img src="image/myapp.jpg" alt="myapp" class="img-fluid rounded shadow" style="max-width: 50%;">
+                                </a>
+                            </div>
+                            <li>Navega al directorio del proyecto: <code>cd MiAplicacionMVC</code></li>
+                            <li>Ejecuta la aplicación: <code>dotnet run</code></li>
+                            <div class="text-center mt-4 mb-4">
+                                <a href="image/donetrun.jpg" target="_blank">
+                                    <img src="image/donetrun.jpg" alt="donetrun" class="img-fluid rounded shadow" style="max-width: 50%;">
+                                </a>
+                            </div>
+                        </ol>
+                        <p>¡Y listo! Tu aplicación estará funcionando en <code>https://localhost:5001</code></p>
+                    </section>
+
+                    <!-- Integracion IA -->
+                    <section id="agentes_ia">
+                        <h2 class="section-title">Agentes IA</h2>
+                        <p>Editor de código con agentes de IA inegrados</p>
+                        <h5 class=""><strong>TRAE.AI</strong></h5>
+                        <p>Es un IDE(Integrated Development Environment) potenciado con inteligencia artificial, lanzado por ByteDance (la empresa dueña de TikTok) a inicios de 2025​. Es una herramienta gratuita posicionándose como una alternativa a editores con IA como Cursor y Windsurf​</p>
+                        <div class="text-center mt-4 mb-4">
+                            <a href="image/trae.jpg" target="_blank">
+                                <img src="image/trae.jpg" alt="trae" class="img-fluid rounded shadow" style="max-width: 50%;">
+                            </a>
+                        </div>
+                    </section>
+                    <section id="instalacionTrae">
+                        <h2 class="section-title">Instalación</h2>
+                        <ol>
+                            <li>Descarga e instala el <strong>TRAE.AI</strong> desde <a href="https://www.trae.ai/" target="_blank">Sitio oficial para descargar TRAE</a></li>
+                            <li>Instala <strong>TRAE.AI</strong>
+                                <div class="text-center mt-4 mb-4">
+                                    <a href="image/traeinst.jpg" target="_blank">
+                                        <img src="image/traeinst.jpg" alt="traeinst" class="img-fluid rounded shadow" style="max-width: 50%;">
+                                    </a>
+                                </div>
+                                <div class="text-center mt-4 mb-4">
+                                    <a href="image/traeinst2.jpg" target="_blank">
+                                        <img src="image/traeinst2.jpg" alt="traeinst" class="img-fluid rounded shadow" style="max-width: 50%;">
+                                    </a>
+                                </div>
+                                <div class="text-center mt-4 mb-4">
+                                    <a href="image/traeinst3.jpg" target="_blank">
+                                        <img src="image/traeinst3.jpg" alt="traeinst" class="img-fluid rounded shadow" style="max-width: 50%;">
+                                    </a>
+                                </div>
+                                <div class="text-center mt-4 mb-4">
+                                    <a href="image/traeinst4.jpg" target="_blank">
+                                        <img src="image/traeinst4.jpg" alt="traeinst" class="img-fluid rounded shadow" style="max-width: 50%;">
+                                    </a>
+                                </div>
+                            <li>Abre la aplicación y navega al directorio del proyecto</li>
+                        </ol>
+                    </section>
+
+                    <!-- Modelos, Controladores, (Views, Modelos, Controllers, Views, Models) -->
+                    <section id="proyectoasp">
+                        <h1 id="proyectoasp" class="section-title">Proyecto ASP.NET</h1>
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">😅ASP.NET: ¿Realmente es tan difícil desarrollar aplicaciones? | Guía completa🚀</h5>
+                            <a href="https://www.youtube.com/watch?v=scCePgb-bNQ" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+
+
+                    </section>
+
+                    <section id="modelos">
+                        <h2 class="section-title">Modelos (Models)</h2>
+                        <p>Creación del modelo de Productos</p>
+                        <h5 class=""><strong>Archivo Proucto.cs</strong></h5>
+                        <p><strong>En ASP.NET MVC</strong>, el modelo representa la lógica de datos y la entidad de dominio de la aplicación. El modelo de producto generalmente se implementa como una clase C# que define las propiedades y características de un producto, como su nombre, descripción, precio, etc. Se utiliza para representar los datos de los productos en la aplicación, permitiendo que los controladores y las vistas interactúen con estos datos​</p>
+                        <p><strong>En la carpeta Models creamos un archivo de nombre Producto.cs</strong></p>
+        
+                        <!-- codigo c# -->
+                        <div class="text-left mt-4 mb-4 text-white rounded shadow p-3 mb-5 bg-dark rounded">
+                            <pre>
+        using System;
+        using System.ComponentModel.DataAnnotations;
+        
+        namespace ApplicacionWeb.Models
+        {
+            public class Producto
+            {
+                public int Id { get; set; }
+
+                [Required(ErrorMessage = "El nombre es obligatorio.")]
+                [StringLength(100, ErrorMessage = "El nombre no puede exceder los 100 caracteres.")]
+                public string Nombre { get; set; }
+        
+                [StringLength(500, ErrorMessage = "La descripción no puede exceder los 500 caracteres.")]
+                public string Descripcion { get; set; }
+        
+                [Required(ErrorMessage = "El precio es obligatorio.")]
+                [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0.")]
+                public decimal Precio { get; set; }
+        
+                [Required(ErrorMessage = "El stock es obligatorio.")]
+                [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser negativo.")]
+                public int Stock { get; set; }
+        
+                public DateTime? FechaCaducidad { get; set; }
+            }
+        }
+                            </pre>
+                        </div>
+                        <div>
+                            <pre>
+        <h4>Explicación:</h4>
+        [Required]:
+            •	Se utiliza para marcar los campos obligatorios (Nombre, Precio, Stock).
+            •	Incluye un mensaje de error personalizado para mejorar la experiencia del usuario.
+        [StringLength]:
+            •	Limita la longitud máxima de los campos de texto (Nombre y Descripcion).
+        [Range]:
+            •	Valida que el Precio sea mayor a 0 y que el Stock no sea negativo.
+        FechaCaducidad:
+            •	Es opcional, por lo que se define como DateTime? (tipo nullable).
+        Espacio de nombres (namespace):
+            •	El modelo se coloca en la carpeta Models dentro del proyecto para mantener una estructura organizada.
+                            </pre>
+                        </div>
+                    </section>
+        
+                     <section id="Controladores">
+                        <h2 class="section-title">Controladores (Controllers)</h2>
+                        <p>Creación del Controlador de Productos</p>
+                        <p>Crea un controlador llamado <strong>ProductosController</strong> que manejará las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para el modelo Producto.</p>
+                        <p><strong>En la carpeta Controllers creamos un archivo de nombre ProductosController.cs</strong></p>
+                        <!-- codigo c# -->
+                        <div class="text-left mt-4 mb-4 text-white rounded shadow p-3 mb-5 bg-dark rounded">
+                            <xmp>
+using Microsoft.AspNetCore.Mvc;
+using ApplicacionWeb.Models;
+                                
+namespace ApplicacionWeb.Controllers
+    {
+            public class ProductosController : Controller
+        {
+            private static List<producto> _productos = new List<Producto>
+            {
+                new Producto { Nombre = "Producto 1", Precio = 10.5m, Stock = 20 },
+                new Producto { Nombre = "Producto 2", Precio = 15.0m, Stock = 10 }
+            };
+        
+            // GET: Producto
+            public IActionResult Index()
+            {
+                return View(_productos);
+            }
+        
+            // GET: Producto/Create
+            public IActionResult Create()
+            {
+                return View();
+            }
+        
+            // POST: Producto/Create
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public IActionResult Create(Producto producto)
+            {
+                if (ModelState.IsValid)
+                {
+                    _productos.Add(producto);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(producto);
+                }
+        
+            // GET: Producto/Edit/5
+            public IActionResult Edit(int id)
+            {
+                var producto = _productos.ElementAtOrDefault(id);
+                if (producto == null)
+                {
+                    return NotFound();
+                }
+                ViewBag.Id = id;
+                return View(producto);
+            }
+        
+            // POST: Producto/Edit/5
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public IActionResult Edit(int id, Producto producto)
+            {
+                if (ModelState.IsValid)
+                {
+                    _productos[id] = producto;
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(producto);
+            }
+        
+            // GET: Producto/Delete/5
+            public IActionResult Delete(int id)
+            {
+                var producto = _productos.ElementAtOrDefault(id);
+                if (producto == null)
+                {
+                    return NotFound();
+                }
+                return View(producto);
+            }
+        
+            // POST: Producto/Delete/5
+            [HttpPost, ActionName("Delete")]
+            [ValidateAntiForgeryToken]
+            public IActionResult DeleteConfirmed(int id)
+            {
+                if (id >= 0 && id < _productos.Count)
+            {
+                _productos.RemoveAt(id);
+            }
+            return RedirectToAction(nameof(Index));
+            }
+        }
+    } 
+                        </xmp>
+                        </div>
+                     </section>
+        
+                     <section id="vistas">
+                        <h2 class="section-title">Vistas (Views)</h2>
+                        <h3>Creación de la Vista de Productos</h3>
+        
+                        <!-- Vista Index.cshtml -->
+                        <p><strong>En la carpeta Views/Productos creamos un archivo de nombre Index.cshtml</strong></p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <!-- codigo c# -->
+                            <xmp>
+        @model IEnumerable<ApplicacionWeb.Models.Producto>
+        
+        <h1>Lista de Productos</h1>
+        
+        <a asp-action="Create" class="btn btn-primary">Crear Nuevo Producto</a>
+            
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        var producto = Model.ElementAt(i);
+                    <tr>
+                        <td>@producto.Nombre</td>
+                        <td>@producto.Precio</td>
+                        <td>@producto.Stock</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@i" class="btn btn-warning">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@i" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+                            </xmp>
+        
+                        </div>
+        
+                        <!-- Vista Create.cshtml -->
+                        <p><strong>En la carpeta Views/Productos creamos un archivo de nombre Create.cshtml</strong></p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <!-- codigo c# -->
+                            <xmp>
+        @model ApplicacionWeb.Models.Producto
+        
+        <h1>Crear Producto</h1>
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label asp-for="Nombre"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion"></label>
+                <textarea asp-for="Descripcion" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stock"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaCaducidad"></label>
+                <input asp-for="FechaCaducidad" class="form-control" type="date" />
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+                            </xmp>
+                        </div>
+        
+                         <!-- Vista Edit.cshtml -->
+                         <p><strong>En la carpeta Views/Productos creamos un archivo de nombre Edit.cshtml</strong></p>
+                         <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                             
+                             <!-- codigo c# -->
+                             <xmp>
+        @model ApplicacionWeb.Models.Producto
+        
+        <h1>Editar Producto</h1>
+        <form asp-action="Edit" method="post">
+            <div class="form-group">
+                <label asp-for="Nombre"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion"></label>
+                <textarea asp-for="Descripcion" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stock"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaCaducidad"></label>
+                <input asp-for="FechaCaducidad" class="form-control" type="date" />
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+                             </xmp>
+                         </div>
+        
+                          <!-- Vista Delete.cshtml -->
+                        <p><strong>En la carpeta Views/Productos creamos un archivo de nombre Delete.cshtml</strong></p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <!-- codigo c# -->
+                            <xmp>
+        @model ApplicacionWeb.Models.Producto
+        
+        <h1>Eliminar Producto</h1>
+                                
+        <p>¿Estás seguro de que deseas eliminar este producto?</p>
+        <div>
+            <strong>Nombre:</strong> @Model.Nombre
+        </div>
+        <div>
+            <strong>Precio:</strong> @Model.Precio
+        </div>
+        <div>
+            <strong>Stock:</strong> @Model.Stock
+        </div>
+        
+        <form asp-action="DeleteConfirmed" method="post">
+            <input type="hidden" asp-for="Nombre" />
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>                       
+                            </xmp>
+                        </div>
+                    </section>
+                    <!-- Aplicando Bootstrap en ASP.NET -->
+                    <section id="bootstrap">
+                        <h2 class="section-title">Aplicando Bootstrap en ASP.NET</h2>
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">😅Domina Bootstrap en ASP.NET Core MVC | en Minutos🚀</h5>
+                            <a href="https://www.youtube.com/watch?v=CWwydmspXLA" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <br>
+                        <h3>Definición</h3>
+                        <p><strong>Bootstrap </strong> es un framework front-end de código abierto, gratuito y multiplataforma creado originalmente por Twitter (ahora mantenido por un equipo independiente) que facilita el desarrollo de aplicaciones web responsivas para adaptarse a distintos tamaños de pantalla.</p>
+                        <li>Encontrará toda la documentación de <strong>Bootstrap</strong> desde <a href="https://getbootstrap.com/" target="_blank">Su sitio oficial</a></li>
+                        <hr>
+
+                        
+                        <h2>Visual Studio 2022</h2>
+                        <p>En la carpeta <strong>Views/Shared</strong> encontramos un archivo de nombre <strong>_Layout.cshtml.</strong></p>
+                        <p>En la cabecera de este archivo esta el link de la cdn (Content Delivery Network) de bootstrap</p>
+
+                        <h4>Atributo Class en Bootstrap</h4>
+                        <p>Se utiliza para aplicar estilos CSS a los elementos HTML. Bootstrap proporciona una amplia variedad de clases predefinidas que se puede usar para estilizar los elementos de manera rápida y sencilla.</p>
+                        <p>Se representa asi: class="" y dentro de las comillas van las clases</p>
+
+                        <ul>
+                            <li><strong>class="bg-success"</strong> aplica el color verde de fondo de un elemento</li>
+                            <li><strong>class="border border-success"</strong> aplica el color verde al borde de un elemento</li>
+                            <li><strong>class="text-white"</strong> aplica el color blanco al texto de un elemento</li>
+                            <li><strong>class="text-center"</strong> aplicael texto centrado de un elemento</li>
+                            <li><strong>class="col-md-12"</strong> define una columna que ocupa el ancho completo de una fila en dispositivos</li>
+                            <li><strong>class="row"</strong> define una fila dentro del sistema de cuadrícula</li>
+                            <li><strong>class="form-group"</strong> se utiliza para estructurar los elementos de un formulario</li>
+                            <li><strong>class="form-control"</strong> aplica estilos predefinidos a los elementos de formulario</li>
+                            <li><strong>class="col-form-label"</strong> da formato a etiquetas de formulario junto a campos de entrada(input)</li>
+                            <li><strong>class="mt-3"</strong> agrega un margen superior de 1rem (aproximadamente 16px) al elemento</li>
+                            <li><strong>class="mb-3"</strong> agrega un margen inferior de 1rem (aproximadamente 16px) al elemento</li>
+                            <li><strong>class="p-2"</strong> agrega un espacio o padding a los lados del elemente (aproximadamente 8px) al elemento</li>
+                        </ul>
+                        
+                        <!-- Vista Create.cshtml -->
+                        <p><strong>Abrimos el archivo Create.cshtml de la carpeta Views/Productos</strong></p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <!-- codigo c# -->
+                            <xmp>
+        @model ApplicacionWeb.Models.Producto
+        
+        <div class="container border border-success" style="--bs-bg-opacity: .3;">
+            <div class="col-md-12">
+                <h1>Crear Producto</h1>
+                <form asp-action="Create" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="Nombre" class="p-2"></label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group col-md-2">
+                            <label asp-for="Precio" class="p-2"></label>
+                            <input asp-for="Precio" class="form-control" />
+                            <span asp-validation-for="Precio" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label asp-for="Stock" class="p-2"></label>
+                            <input asp-for="Stock" class="form-control" />
+                            <span asp-validation-for="Stock" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="FechaCaducidad" class="p-2"></label>
+                            <input asp-for="FechaCaducidad" class="form-control" type="date" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="p-2" asp-for="Descripcion"></label>
+                            <textarea asp-for="Descripcion" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                        
+                    </div>
+                    
+                </form>
+            </div>
+            
+        </div>
+                            </xmp>
+                        </div>
+
+                                                   
+                    </section>
+
+                    <!-- Base de Datos -->
+                    <section id="basedatos">
+                        <h2 class="section-title">Base de datos PostgreSQL</h2>
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">🚀ASP.NET Core + PostgreSQL | Integra una Base Datos Gratuita a tus Proyectos😅</h5>
+                            <a href="https://www.youtube.com/watch?v=CWwydmspXLA" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <p><strong>PostgreSQL</strong> es un sistema de gestión de bases de datos relacional y orientado a objetos, de código abierto, caracterizado por su estabilidad, potencia y cumplimiento de estándares SQL, que lo convierte e una excelente opción para diversas aplicaciones. Es ideal para aplicaciones web que requieren robustez, escalabilidad y flexibilidad.</p>
+                        
+                        <section id="caracteristicas">
+                            <h4 class="section-title">Características principales</h4>
+                            <ul>
+                                <li><strong>Open source: </strong> De códito abierto, publicado bajo la licencia PostgreSQL</li>
+                                <li><strong>Altamente extensible:</strong>  Permite crear tipos de datos, funciones y nuevos lenguajes de procedimientos.</li>
+                                <li><strong>Soporte ACID:</strong> Garantiza transacciones seguras y consistentes.</li>
+                                <li><strong>Consultas avanzadas:</strong> Compatible con subconsultas, joins complejos, funciones de ventana, y más.</li>
+                                <li><strong>Soporte de JSON y XML:</strong> Ideal para datos semiestructurados.</li>
+                                <li><strong>Multiplataforma:</strong> Funciona en Linux, Windows, macOS, entre otros.</li>
+                                <li><strong>Compatible con ORMs:</strong> Funciona muy bien con Entity Framework, Sequelize, Prisma, Django ORM, entre otros.</li>
+                                <li><strong>Integración sencilla con APIs:</strong> deal para backends en .NET, Node.js, Python, Java, etc.</li>
+                                <li><strong>Escalable:</strong> Funciona bien desde apps pequeñas hasta grandes plataformas web.</li>
+                            </ul>
+                            <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .5;">
+                                <a href="https://es.wikipedia.org/wiki/PostgreSQL" target="_blank" class="btn btn-success">
+                                    <i class="bi bi-wikipedia"></i> Ver en la Wikipedia
+                                </a>
+                            </div>
+
+                            <!-- En .NET -->
+                            <h4 class="section-title">PostgreSQL + ASP.NET – Enfoque para desarrollo web</h4>
+                            <h5>Su compatibilidad a través de bibliotecas como <strong>Npgsql</strong> que es el proveedor oficial de <strong>PostgreSQL para .NET</strong> convirtiendolo en una excelente opción para aplicaciones web modernas construidas con <strong>ASP.NET Core</strong> por su rendimiento, seguridad y flexibilidad.</h5>
+                            <b></b>
+                            <h4 class="section-title">Ventajas clave en <strong>ASP.NET</strong></h4>
+                            <ul>
+                                <li>🔌Integración directa con Entity Framework Core usando <strong>Npgsql.EntityFrameworkCore.PostgreSQL</strong></li>
+                                <li>🧱 Migraciones automáticas y soporte completo para LINQ.</li>
+                                <li>📄 Soporte nativo de JSON/JSONB útil si trabajas con APIs REST y estructuras dinámicas</li>
+                                <li>🔒 Seguridad avanzada compatible con autenticación por roles y conexiones cifradas</li>
+                                <li>🚀 Alto rendimiento con buena gestión de conexiones y uso eficiente de recurso</li>
+                                <li>📦 Docker friendly – ideal para entornos de desarrollo y despliegue en contenedores</li>
+                            </ul>
+
+                            <!-- Instalacion PostgreSQL -->
+                            <div class="text-start">
+                                <h4 class="section-title">Instalacion de PostgreSQL</h4>
+                                <ul>
+                                    <li>Descarga el <strong>Instalador</strong> desde: <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads" target="_blank">Download PostgreSQL</a></li>
+                                    <li>Guía de instalacion <strong>PostgreSQL</strong> <a href="https://www.enterprisedb.com/docs/supported-open-source/postgresql/installing/windows/" target="_blank">Abrir Guía</a></li>
+                                </ul>
+                            </div>
+                        </section>
+
+                    </section>
+                    
+                    <!-- Dibuja una linea horizontal -->
+                    <hr>
+                    <!-- Aplicando Diseño/Estilos de Boostrap a las vistas de Productos -->
+                    <section id="Estilos">    
+                    <h3>Aplicando Estilos a las Vistas de Productos</h3>
+
+                      <p><strong>Archivo Views/Productos/Index.cshtml</strong></p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <!-- codigo c# -->
+                             <xmp>
+@model IEnumerable<ApplicacionWeb.Models.Producto>
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <h1>Lista de Productos</h1>
+
+    <a asp-action="Create" class="btn btn-success">Crear Nuevo Producto</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var producto = Model.ElementAt(i);
+                <tr>
+                    <td>@producto.Nombre</td>
+                    <td>@producto.Precio</td>
+                    <td>@producto.Stock</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@i" class="btn btn-warning">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@i" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>                       
+                            </xmp>
+                        </div>
+
+                        <p><strong>Archivo Views/Productos/Create.cshtml</strong></p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <!-- codigo c# -->
+                             <xmp>
+@model ApplicacionWeb.Models.Producto
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <div class="col-md-12">
+        <h1>Crear Producto</h1>
+        <form asp-action="Create" method="post">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Nombre"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group col-md-2">
+                    <label asp-for="Precio"></label>
+                    <input asp-for="Precio" class="form-control" />
+                    <span asp-validation-for="Precio" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="Stock"></label>
+                    <input asp-for="Stock" class="form-control" />
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="FechaCaducidad"></label>
+                    <input asp-for="FechaCaducidad" class="form-control" type="date" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Descripcion"></label>
+                    <textarea asp-for="Descripcion" class="form-control"></textarea>
+                </div>
+                <div class="mb-3 mt-3">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>                      
+                            </xmp>
+                        </div>
+
+                        <p><strong>Archivo Views/Productos/Edit.cshtml</strong></p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <!-- codigo c# -->
+                             <xmp>
+@model ApplicacionWeb.Models.Producto
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <div class="col-md-12">
+        <h1>Editar Producto</h1>
+        <form asp-action="Edit" method="post">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Nombre"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Precio"></label>
+                    <input asp-for="Precio" class="form-control" />
+                    <span asp-validation-for="Precio" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Stock"></label>
+                    <input asp-for="Stock" class="form-control" />
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="FechaCaducidad"></label>
+                    <input asp-for="FechaCaducidad" class="form-control" type="date" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Descripcion"></label>
+                    <textarea asp-for="Descripcion" class="form-control"></textarea>
+                </div>
+                <div class="mb-3 mt-3">
+                    <button type="submit" class="btn btn-success">Modificar</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>                     
+                            </xmp>
+                        </div>
+
+                        <p><strong>Archivo Views/Productos/Delete.cshtml</strong></p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <!-- codigo c# -->
+                             <xmp>
+@model ApplicacionWeb.Models.Producto
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <div class="col-md-4">
+
+        <h1>Eliminar Producto</h1>
+        <form asp-action="DeleteConfirmed" method="post">
+            <div class="row">
+                <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                <div class="form-group col-md-6">
+                    <strong>Nombre:</strong> @Model.Nombre
+                </div>
+                <div class="form-group col-md-3">
+                    <strong>Precio:</strong> @Model.Precio
+                </div>
+                <div class="form-group col-md-3">
+                    <strong>Stock:</strong> @Model.Stock
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <input type="hidden" asp-for="Nombre" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>                     
+                            </xmp>
+                        </div>
+                    </section>
+                    
+                      
+                            
+                </div>
+
+                <!-- Contenido -->
+                <div class="col-lg-3">
+                    <div class="sidebar">
+                        <img src="image/agente.jpg" alt="traeinst" class="img-fluid rounded shadow" style="max-width: 80%;">
+                        <h2 class="text-white">Contenido</h2>
+                        <div style="height: 40vh; overflow-y: auto;">
+                            <ul class="list-unstyled nav-links">
+                                <li><a href="#introduccion" class="nav-link">Introducción</a></li>
+                                <li><a href="#que-es" class="nav-link">¿Qué es ASP.NET Core?</a></li>
+                                <li><a href="#caracteristicas" class="nav-link">Características principales</a></li>
+                                <li><a href="#ventajas" class="nav-link">Ventajas y casos de uso</a></li>
+                                <li><a href="#requisitos" class="nav-link">Requisitos del sistema</a></li>
+                                <li><a href="#instalacion" class="nav-link">Instalación paso a paso</a></li>
+                                <li><a href="#agentes_ia" class="nav-link">Agentes IA</a></li>
+                                <li><a href="#proyectoasp" class="nav-link">Proyecto ASP.NET</a></li>
+                                <li><a href="#bootstrap" class="nav-link">Aplicando Bootstrap en ASP.NET</a></li>
+                                <li><a href="#basedatos" class="nav-link">Base de Datos PostgreSQL</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
