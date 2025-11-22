@@ -249,7 +249,7 @@ namespace ApplicacionWeb.Controllers
     {
             public class ProductosController : Controller
         {
-            private static List<producto> _productos = new List<Producto>
+            private static List<Producto> _productos = new List<Producto>
             {
                 new Producto { Nombre = "Producto 1", Precio = 10.5m, Stock = 20 },
                 new Producto { Nombre = "Producto 2", Precio = 15.0m, Stock = 10 }
@@ -583,7 +583,7 @@ namespace ApplicacionWeb.Controllers
                         <h2 class="section-title">Base de datos PostgreSQL</h2>
                         <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
                             <h5 class="section-title text-white">🚀ASP.NET Core + PostgreSQL | Integra una Base Datos Gratuita a tus Proyectos😅</h5>
-                            <a href="https://www.youtube.com/watch?v=CWwydmspXLA" target="_blank" class="btn btn-danger">
+                            <a href="https://www.youtube.com/watch?v=9fyGFnK074Q" target="_blank" class="btn btn-danger">
                                 <i class="bi bi-youtube"></i> Ver tutorial en YouTube
                             </a>
                         </div>
@@ -774,11 +774,11 @@ namespace ApplicacionWeb.Controllers
 
                         <p><strong>Archivo Views/Productos/Delete.cshtml</strong></p>
                         <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
                             <!-- codigo c# -->
-                             <xmp>
-@model ApplicacionWeb.Models.Producto
-
-<div class="container bg-success" style="--bs-bg-opacity: .3;">
+                            <xmp>
+    @model ApplicacionWeb.Models.Producto
+    <div class="container bg-success" style="--bs-bg-opacity: .3;">
     <div class="col-md-4">
 
         <h1>Eliminar Producto</h1>
@@ -803,15 +803,1278 @@ namespace ApplicacionWeb.Controllers
             </div>
         </form>
     </div>
-</div>                     
+    </div> 
+                            </xmp>
+
+                        </div>
+                    </section>
+                       
+                    <!-- Migraciones -->
+                     <br>
+                     <hr>
+                    <section id="migraciones">
+                        
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">👨‍💻La TÉCNICA de MIGRACIONES que REVOLUCIONARÁ tus PROYECTOS | Sin COMPLICACIONES 🔥</h5>
+                            <a href="https://www.youtube.com/watch?v=veKNqUU23RM" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <br>
+                        
+                        <h2 class="section-title">Migraciones</h2>
+                        <p>
+                            Las migraciones son una forma de mantener la estructura de la base de datos sincronizada con el modelo de datos de una aplicación. 
+                            Permiten crear, modificar y eliminar tablas y columnas en la base de datos a medida que cambian los requisitos del modelo.
+                            Entity Framework Core (EF Core) proporciona un sistema de migraciones que facilita este proceso.
+                        </p>
+                        <ul>
+                            <li>Cada cambio en el modelo de datos se registra como una migración, permitiendo un historial de modificaciones en la base de datos</li>
+                            <li>Las migraciones pueden ser aplicadas a la base de datos mediante comandos de la línea de comandos o desde el código</li>
+                            <li>Las migraciones permiten revertir cambios en la base de datos, facilitando la gestión de versiones</li>
+                            <li>Las migraciones pueden ser generadas automáticamente a partir de cambios en el modelo de datos, lo que ahorra tiempo y esfuerzo</li>
+                            <li>Las migraciones pueden ser personalizadas para adaptarse a requisitos específicos, como la creación de índices o la modificación de datos existentes</li>
+                            <li>Las migraciones son una herramienta poderosa para mantener la integridad y la consistencia de la base de datos a lo largo del ciclo de vida de una aplicación</li>
+                        </ul>
+                        <hr>
+                       
+                        <h3 class="section-title">Preparando el Entorno</h3>
+
+                        <!-- Paquetes nuget -->
+                        <h4 class="section-title">Los Paquetes NuGet</h4>
+                        <p>Los paquetes NuGet son una forma de distribuir y compartir bibliotecas y herramientas para .NET. 
+                            En este caso, se utilizan paquetes NuGet para trabajar con PostgreSQL y Entity Framework Core (EF Core).
+                            Estos paquetes proporcionan las bibliotecas necesarias para interactuar con la base de datos y realizar 
+                            operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en las entidades del modelo.
+                        </p>
+                            
+                        <p>Para trabajar con la Base de Datos PostgreSQL en ASP.NET Core, es necesario instalar los siguientes paquetes NuGet</p>
+                            <ul>
+                                <li><strong>Npgsql.EntityFrameworkCore.PostgreSQL</strong> - sirve como el proveedor de base de datos para Entity Framework Core (EF Core) cuando se utiliza con PostgreSQL.</li>
+                                <li><strong>Microsoft.EntityFrameworkCore.Tools</strong> - son una serie de herramientas de línea de comandos (CLI) y extensión de Visual Studio que simplifican el desarrollo de aplicaciones que usan Entity Framework Core (EF Core).</li>
+                                <li><strong>Microsoft.EntityFrameworkCore.Design</strong> - facilita la creación de modelos de base de datos y la gestión de migraciones durante el desarrollo</li>
+                            </ul> 
+                        <hr>
+                        
+                        <h4 class="section-title">La cadena de Conexión</h4>
+
+                        <p>La cadena de conexión es una cadena de texto que contiene la información necesaria para conectarse a una base de datos. 
+                            Incluye detalles como el nombre del servidor, el nombre de la base de datos, el usuario y la contraseña.
+                            En el caso de PostgreSQL, la cadena de conexión tiene un formato específico que incluye el nombre del host, el puerto,
+                            el nombre de la base de datos, el usuario y la contraseña.
+                            La cadena de conexión se utiliza en la configuración de la aplicación para establecer la conexión con la base de datos.
+                            En este caso, la cadena de conexión se almacena en el archivo <strong>appsettings.json</strong> y se utiliza en el archivo <strong>Program.cs</strong> para configurar el contexto de la base de datos.
+                        </p>
+                         <h5 class="section-title">Archivo appsettings.json </h5>
+                        <p>Agregarems la cadena de conexion a la Base de Datos</p>
+                        
+                        <!-- codigo Archivo appsettings -->
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <xmp>
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Database=puntoventaDB;Username=postgres;Password=tu_contraseña"
+  }
+}
+                            </xmp>
+
+                        </div>
+
+                        <h5 class="section-title">Creando la Base de Datos</h5>
+
+                        <h6><strong>PgAdmin</strong></h6>
+                        <p>PgAdmin es una herramienta de administración y desarrollo para PostgreSQL. 
+                            Proporciona una interfaz gráfica para interactuar con la base de datos, lo que facilita la creación, modificación y eliminación de tablas, así como la ejecución de consultas SQL.
+                            PgAdmin es una herramienta muy útil para los desarrolladores y administradores de bases de datos que trabajan con PostgreSQL.
+                            Puedes descargar PgAdmin desde su sitio oficial: <a href="https://www.pgadmin.org/download/" target="_blank">PgAdmin</a>
+                        </p>
+
+                        <hr>
+
+                        <h4 class="section-title">El Contexto de la Base de Datos</h4>
+                        <p>
+                            Es una clase que representa una sesión con la base de datos y permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en las entidades del modelo. 
+                            En este caso, el contexto de la base de datos se llama <strong>ApplicationDbContext</strong> y hereda de <strong>DbContext</strong>, que es la clase principal de Entity Framework Core (EF Core).
+                        </p>
+
+                        <h5 class="section-title">Archivo ApplicationDbContext.cs </h5>
+                        <p>Creamos una carpeta de nombre <strong>Data</strong> y creamos un archivo de nombre <strong>ApplicationDbContext.cs</strong></p>
+                        
+                        <!-- codigo Archivo ApplicationDbContext -->
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <xmp>
+using Microsoft.EntityFrameworkCore;
+using ApplicacionWeb.Models;
+
+namespace ApplicacionWeb.Data
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Producto> Productos { get; set; }
+    }
+}
+                            </xmp>
+
+                        </div>
+                        
+                        <h5 class="section-title">Entity Framework Core (EF Core)</h5>
+                        <p>Es un mapeador objeto-relacional (ORM) de código abierto, multiplataforma y ligero, diseñado para trabajar con bases 
+                            de datos desde aplicaciones .NET. Permite a los desarrolladores interactuar con bases de datos usando objetos .NET
+                            , simplificando el código de acceso a datos y permitiendo una mayor flexibilidad en la gestión de datos.
+                        </p>
+                        <h5 class="section-title">DbContext</h5>
+                        <p>Sirve como puente entre una aplicación ASP.NET Core y la base de datos. La clase ApplicationDbContext hereda de DbContext, 
+                            que es la clase principal de Entity Framework Core. Esta clase representa una sesión con la base de datos y puede ser 
+                            usada para consultar y guardar instancias de tus entidades.
+                        </p>
+                        <h5 class="section-title">DbSet</h5>
+                        <p>Es una propiedad dentro de una clase que extiende de DbContext en Entity Framework Core. Esto permite que Entity Framework Core sepa qué tablas debe crear 
+                            en la base de datos. El nombre "Productos" será el nombre de la tabla en la Base de Datos PostgreSQL.
+                        </p>
+                        
+                        <hr>
+
+                        <h4 class="section-title">El Modelo de Datos</h4>
+                        <p>
+                            Es una representación de los datos que se almacenan en la base de datos. En este caso, el modelo de datos se representa mediante la clase <strong>Producto</strong>, 
+                            que contiene las propiedades que corresponden a las columnas de la tabla en la base de datos. 
+                            Entity Framework Core (EF Core) utiliza este modelo para mapear los datos entre la base de datos y la aplicación.
+                            El modelo de datos se define como una clase que hereda de <strong>DbContext</strong> y contiene propiedades que representan las tablas de la base de datos.
+                            Cada propiedad de la clase representa una tabla en la base de datos y cada propiedad dentro de la clase representa una columna en esa tabla.
+                            Entity Framework Core (EF Core) utiliza este modelo para mapear los datos entre la base de datos y la aplicación.
+                            En este caso, la clase <strong>Producto</strong> representa una tabla en la base de datos que contiene información sobre los productos.
+                            Cada propiedad de la clase representa una columna en esa tabla y cada instancia de la clase representa una fila en la tabla.
+                            Entity Framework Core (EF Core) utiliza este modelo para mapear los datos entre la base de datos y la aplicación.
+                            La clase <strong>Producto</strong> contiene propiedades que representan las columnas de la tabla en la base de datos,
+                        </p>
+
+                        <h5 class="section-title">Archivo Producto.cs </h5>
+                        
+                        <!-- codigo Archivo Producto -->
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <xmp>
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace ApplicacionWeb.Models
+{
+    public class Producto
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "El nombre es obligatorio.")]
+        [StringLength(100, ErrorMessage = "El nombre no puede exceder los 100 caracteres.")]
+        public string Nombre { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "El precio es obligatorio.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0.")]
+        public decimal PrecioVenta { get; set; }
+
+        [Required(ErrorMessage = "El stock es obligatorio.")]
+        [Range(0, int.MaxValue, ErrorMessage = "El stock no puede ser negativo.")]
+        public int Stock { get; set; }
+
+        [Required(ErrorMessage = "El precio es obligatorio.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0.")]
+        public decimal PrecioCosto { get; set; }
+        public DateTime? FechaCaducidad { get; set; }
+
+        [StringLength(500, ErrorMessage = "La descripción no puede exceder los 500 caracteres.")]
+        public string? Descripcion { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
+    }
+}
+                            </xmp>
+
+                        </div>
+
+                        <h5 class="section-title">Archivo Program.cs </h5>
+                        <p>Modificar el archivo Program.cs para agregar el servicio de DbContext</p>
+                        
+                        <!-- codigo Archivo Program -->
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            
+                            <xmp>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+                            </xmp>
+
+                        </div>
+
+                        <h4 class="section-title">Creando la Primera Migración</h4>
+                        <ul>
+                            <li>1. Abre la consola de NuGet en Visual Studio (Herramientas > Administrador de paquetes NuGet > Consola del Administrador
+                            de paquetes).</li>
+                            <li>2.	Ejecuta el siguiente comando: <strong>Add-Migration Inicial</strong></li>
+                            <li>3.	Ejecuta el siguiente comando: <strong>Update-Database</strong></li>
+                        </ul>
+                       
+
+                    </section>
+                    <hr>
+                    <br>
+
+                    <!-- CRUD ASP.NET Core MVC + PostgreSQL -->
+                    <section id="crud">
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">👨‍💻CRUD en ASP.NET Core MVC | PostgreSQL : Más FÁCIL de lo que Piensas | Tutorial 2025🔥</h5>
+                            <a href="https://www.youtube.com/watch?v=qtBMWSFV_P8" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <br>
+                        <h2 class="section-title">CRUD ASP.NET Core MVC + PostgreSQL</h2>
+                        <p>El CRUD (Crear, Leer, Actualizar, Eliminar) es una de las operaciones más comunes en el desarrollo de aplicaciones web. 
+                            En este caso, se implementa un CRUD básico utilizando ASP.NET Core MVC y PostgreSQL como base de datos.
+                            A continuación se describen los pasos para implementar un CRUD básico en ASP.NET Core MVC utilizando PostgreSQL como base de datos.
+                        </p>
+                        <h3 class="section-title">Pasos para implementar un CRUD básico</h3>
+                        <ul>
+                            <li><strong>Create (Crear):</strong> Permite agregar un nuevo producto a la base de datos.</li>
+                            <li><strong>Read (Leer):</strong> Muestra la lista de productos almacenados.</li>
+                            <li><strong>Update (Actualizar):</strong> Permite modificar los datos de un producto existente.</li>
+                            <li><strong>Delete (Eliminar):</strong> Permite eliminar un producto de la base de datos.</li>
+                        </ul>
+                        <h5>El archivo <strong>ProductosController.cs</strong></h5>
+                        <p>Los métodos CRUD típicos son:</p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using Microsoft.AspNetCore.Mvc;
+using ApplicacionWeb.Models;
+using ApplicacionWeb.Data;
+
+namespace ApplicacionWeb.Controllers
+{
+    public class ProductosController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public ProductosController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: Producto - obtener la lista de productos almacenados en la base de datos
+        public IActionResult Index()
+        {
+            var productos = _context.Productos.ToList();
+            return View(productos);
+        }
+
+        // GET: Producto/Create - mostrar el formulario para crear un nuevo producto
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Producto/Create - crear un nuevo producto con los datos del formulario y almacenar en la base de datos
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Producto producto)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Productos.Add(producto);
+                _context.SaveChanges(); // Ensure changes are saved to the database
+                return RedirectToAction(nameof(Index));
+            }
+            return View(producto);
+        }
+
+        // GET: Producto/Edit/5 - mostrar los datos del producto seleccionando en el formulario para editar un producto existente
+        public IActionResult Edit(int id)
+        {
+            var producto = _context.Productos.Find(id); // Use Find to retrieve the entity by its primary key
+            if (producto == null)
+            {
+                return NotFound();
+            }
+            return View(producto);
+        }
+
+        // POST: Producto/Edit/5 - actualizar los datos del producto con los datos del formulario y almacenar en la base de datos
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Producto producto)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingProducto = _context.Productos.Find(id); // Retrieve the existing entity
+                if (existingProducto == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the properties of the existing entity
+                existingProducto.Nombre = producto.Nombre;
+                existingProducto.PrecioVenta = producto.PrecioVenta;
+                existingProducto.Stock = producto.Stock;
+                existingProducto.PrecioCosto = producto.PrecioCosto;
+                existingProducto.FechaCaducidad = producto.FechaCaducidad;
+                existingProducto.Descripcion = producto.Descripcion;
+                existingProducto.UpdatedAt = DateTime.UtcNow;
+
+                _context.SaveChanges(); // Save changes to the database
+                return RedirectToAction(nameof(Index));
+            }
+            return View(producto);
+        }
+
+        // GET: Producto/Delete/5 - mostrar el formulario para eliminar un producto existente
+        public IActionResult Delete(int id)
+        {
+            var producto = _context.Productos.Find(id); // Use Find to retrieve the entity by its primary key
+            if (producto == null)
+            {
+                return NotFound();
+            }
+            return View(producto);
+        }
+
+        // POST: Producto/Delete/5 - eliminar el producto seleccionado de la base de datos
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var producto = _context.Productos.Find(id); // Use Find to retrieve the entity by its primary key
+            if (producto != null)
+            {
+                _context.Productos.Remove(producto); // Remove the entity from the DbSet
+                _context.SaveChanges(); // Save changes to the database
+            }
+            return RedirectToAction(nameof(Index));
+        }
+    }
+}
+                            </xmp>
+                        </div>
+                        
+                        <h4>Ajustes en las Vistas de Productos</h4>
+                        <h5>El archivo <strong>Index.cshtml</strong></h5>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+@model IEnumerable<ApplicacionWeb.Models.Producto>
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <h1>Lista de Productos</h1>
+
+    <a asp-action="Create" class="btn btn-success">Crear Nuevo Producto</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>PrecioVenta</th>
+                <th>Stock</th>
+                <th>PrecioCosto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var producto = Model.ElementAt(i);
+                <tr>
+                    <td>@producto.Nombre</td>
+                    <td>@producto.PrecioVenta</td>
+                    <td>@producto.Stock</td>
+                    <td>@producto.PrecioCosto</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@producto.Id" class="btn btn-warning">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@producto.Id" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+                            </xmp>
+                        </div>
+
+                        <h5>El archivo <strong>Edit.cshtml</strong></h5>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+@model ApplicacionWeb.Models.Producto
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <div class="col-md-12">
+        <h1>Editar Producto</h1>
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Nombre"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="PrecioVenta">Precio de Venta</label>
+                    <input asp-for="PrecioVenta" class="form-control" />
+                    <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Stock"></label>
+                    <input asp-for="Stock" class="form-control" />
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="PrecioCosto">Precio de Costo</label>
+                    <input asp-for="PrecioCosto" class="form-control" />
+                    <span asp-validation-for="PrecioCosto" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="FechaCaducidad">Fecha de Caducidad</label>
+                    <input asp-for="FechaCaducidad" class="form-control" type="date" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Descripcion"></label>
+                    <textarea asp-for="Descripcion" class="form-control"></textarea>
+                </div>
+                <div class="mb-3 mt-3">
+                    <button type="submit" class="btn btn-success">Modificar</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+                            </xmp>
+                        </div>
+
+                        <h5>El archivo <strong>Delete.cshtml</strong></h5>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+@model ApplicacionWeb.Models.Producto
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <div class="col-md-4">
+
+        <h1>Eliminar Producto</h1>
+        <form asp-action="Delete" method="post">
+            <div class="row">
+                <p>¿Estás seguro de que deseas eliminar este producto?</p>
+                <div class="form-group col-md-6">
+                    <strong>Nombre:</strong> @Model.Nombre
+                </div>
+                <div class="form-group col-md-3">
+                    <strong>PrecioVenta:</strong> @Model.PrecioVenta
+                </div>
+                <div class="form-group col-md-3">
+                    <strong>Stock:</strong> @Model.Stock
+                </div>
+                <div class="form-group col-md-3">
+                    <strong>PrecioCosto:</strong> @Model.PrecioCosto
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
                             </xmp>
                         </div>
                     </section>
-                    
-                      
-                            
+                    <hr>
+
+                    <!-- Exporta a PDF/Excel + Filtros y Paginación -->
+                    <section id="exportar">
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">👨‍💻Exporta a PDF/Excel + Filtros y Paginación en ASP.NET Core MVC 🔥 [Tutorial 2025]🔥</h5>
+                            <a href="https://www.youtube.com/watch?v=qtBMWSFV_P8" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        
+                        <br>
+                        <h2 class="section-title">Paginación + Filtros</h2>
+                        <p>En este apartado, implementarenos la paginación y los filtros para hacer la búsqueda de productos por nombre. 
+                            En el archivo <strong>ProductosController.cs</strong>, implementaremos la lógica para manejar la paginación y los filtros.
+                        </p>
+                                                
+                        <h5>El archivo <strong>ProductosController.cs</strong></h5>
+                        <p>
+                            Modificaremoes el archivo ProductosController.cs para agregar la lógica de paginación y filtros:
+                        </p>
+                        
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using Microsoft.AspNetCore.Mvc;
+using ApplicacionWeb.Models;
+using ApplicacionWeb.Data;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using ClosedXML.Excel;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+
+namespace ApplicacionWeb.Controllers
+{
+    public class ProductosController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public ProductosController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        // Filtro para buscar productos por nombre y paginación
+        public async Task<IActionResult> Index(string searchString, int pageNumber = 1, int pageSize = 5)
+        {
+            var viewModel = new ProductoViewModel
+            {
+                SearchString = searchString,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            var query = _context.Productos.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(p => EF.Functions.Like(p.Nombre.ToLower(), $"%{searchString.ToLower()}%"));
+            }
+
+            var totalRecords = await query.CountAsync();
+            viewModel.TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
+            viewModel.Productos = await query
+                .OrderBy(p => p.Nombre)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return View(viewModel);
+        }
+
+        Resto del codigo del controlador ...
+                            </xmp>
+                        </div>
+
+                        <h2 class="section-title">Exporta a PDF/Excel</h2>
+                        <p>En este apartado, aprenderemos a exportar datos a PDF y Excel en una aplicación ASP.NET Core MVC. 
+                            Utilizaremos bibliotecas como iText7 para PDF y ClosedXML para Excel, que facilitan la creación de los archivos en estos formatos.
+                        </p>
+                        <h3 class="section-title">Pasos para Exportar a PDF y Excel</h3>
+
+                        <p>Instalar las bibliotecas necesarias:</p>
+                        <ul>
+                            <li><strong>iText7</strong> para crear, editar y manipular archivos PDF en aplicaciones C# y .NET.</li>
+                            <li><strong>iText7 bouncy-castle-adapter</strong> sirve como un adaptador entre la biblioteca iText7 y la biblioteca de criptografía Bouncy Castle.</li>
+                            <li><strong>ClosedXML</strong> permite crear archivos de Excel sin la aplicación Excel.</li>
+                        </ul>
+
+                        <h5>El archivo <strong>ProductosController.cs</strong></h5>
+                        <p>
+                            Modificaremoes el archivo ProductosController.cs para agregar la lógica de exportar a PDF y Excel.:
+                        </p>
+                        
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+public IActionResult ExportToPdf()
+{
+    var productos = _context.Productos.ToList();
+
+    using (MemoryStream ms = new MemoryStream())
+    {
+        PdfWriter writer = new PdfWriter(ms);
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf);
+
+        // Agregar título
+        document.Add(new Paragraph("Lista de Productos")
+            .SetTextAlignment(TextAlignment.CENTER)
+            .SetFontSize(20));
+
+        // Crear tabla
+        Table table = new Table(4).UseAllAvailableWidth();
+
+        // Agregar encabezados
+        table.AddCell("Nombre");
+        table.AddCell("Precio Venta");
+        table.AddCell("Stock");
+        table.AddCell("Precio Costo");
+
+        // Agregar datos
+        foreach (var producto in productos)
+        {
+            table.AddCell(producto.Nombre);
+            table.AddCell(producto.PrecioVenta.ToString("#,##0.00"));
+            table.AddCell(producto.Stock.ToString());
+            table.AddCell(producto.PrecioCosto.ToString("#,##0.00"));
+        }
+
+        document.Add(table);
+        document.Close();
+
+        return File(ms.ToArray(), "application/pdf", "Productos.pdf");
+    }
+}
+
+public IActionResult ExportToExcel()
+{
+    var productos = _context.Productos.ToList();
+
+    using (var workbook = new XLWorkbook())
+    {
+        var worksheet = workbook.Worksheets.Add("Productos");
+
+        // Agregar encabezados
+        worksheet.Cell(1, 1).Value = "Nombre";
+        worksheet.Cell(1, 2).Value = "Precio Venta";
+        worksheet.Cell(1, 3).Value = "Stock";
+        worksheet.Cell(1, 4).Value = "Precio Costo";
+
+        // Dar formato al encabezado
+        var rango = worksheet.Range(1, 1, 1, 4);
+        rango.Style.Font.Bold = true;
+        rango.Style.Fill.BackgroundColor = XLColor.LightGray;
+
+        // Agregar datos
+        int row = 2;
+        foreach (var producto in productos)
+        {
+            worksheet.Cell(row, 1).Value = producto.Nombre;
+            worksheet.Cell(row, 2).Value = producto.PrecioVenta;
+            worksheet.Cell(row, 3).Value = producto.Stock;
+            worksheet.Cell(row, 4).Value = producto.PrecioCosto;
+
+            // Formato para las columnas de precio
+            worksheet.Cell(row, 2).Style.NumberFormat.Format = "#,##0.00";
+            worksheet.Cell(row, 4).Style.NumberFormat.Format = "#,##0.00";
+
+            row++;
+        }
+
+        // Autoajustar columnas
+        worksheet.Columns().AdjustToContents();
+
+        using (var ms = new MemoryStream())
+        {
+            workbook.SaveAs(ms);
+            return File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Productos.xlsx");
+        }
+    }
+}
+                            </xmp>
+                        </div>
+
+                        <br>
+
+                        <h4>Crearemos el archivo ProductoViewModel.cs</h4>
+                        <p>Su función es la de servir como un modelo de vista (ViewModel) que facilita 
+                            la interacción entre la lógica de la aplicación y la interfaz de usuario, especialmente en las vistas para mostrar 
+                            el listados de productos.</p>
+                        <h5>El archivo <strong>ProductoViewModel.cs</strong></h5>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+// Models/ProductoViewModel.cs
+namespace ApplicacionWeb.Models
+{
+    public class ProductoViewModel
+    {
+        // Contiene la lista de productos que se mostrarán en la vista
+        public IEnumerable<Producto> Productos { get; set; } = new List<Producto>();
+        public string SearchString { get; set; } = string.Empty;
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 5;
+        public int TotalPages { get; set; }
+    }
+}
+                            </xmp>
+                        </div>
+
+
+                        <br>
+                        <h5>El archivo <strong>Index.cshtml</strong></h5>
+                        <p>
+                            Modificaremos el archivo <strong>Index.cshtml</strong> para incluir un botón para exportar a PDF y Excel.
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+@model ApplicacionWeb.Models.ProductoViewModel
+
+<div class="container bg-success" style="--bs-bg-opacity: .3;">
+    <h1>Lista de Productos</h1>
+
+    <div class="row mb-3">
+        <div class="col">
+            <form method="get" class="row g-3">
+                <div class="col-auto">
+                    <input type="text" name="searchString" value="@Model.SearchString" class="form-control" placeholder="Buscar por nombre..." />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+                <div class="col-auto">
+                    <label class="col-form-label">Número de Registros a mostrar</label>
+                </div>
+                <div class="col-auto">
+                    <select name="pageSize" class="form-select" onchange="this.form.submit()">
+                        <option value="5" selected="@(Model.PageSize == 5)">5</option>
+                        <option value="10" selected="@(Model.PageSize == 10)">10</option>
+                        <option value="20" selected="@(Model.PageSize == 20)">20</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="col-auto">
+            <div class="btn-group" role="group">
+                <a asp-action="Create" class="btn btn-success">Crear Nuevo Producto</a>
+                <a asp-action="ExportToPdf" class="btn btn-danger">
+                    <i class="fas fa-file-pdf"></i> Exportar a PDF
+                </a>
+                <a asp-action="ExportToExcel" class="btn btn-success">
+                    <i class="fas fa-file-excel"></i> Exportar a Excel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th class="text-end">PrecioVenta</th>
+                <th class="text-center">Stock</th>
+                <th class="text-end">PrecioCosto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var producto in Model.Productos)
+            {
+                <tr>
+                    <td>@producto.Nombre</td>
+                    <td class="text-end">@producto.PrecioVenta.ToString("#,##0.00")</td>
+                    <td class="text-center">@producto.Stock</td>
+                    <td class="text-end">@producto.PrecioCosto.ToString("#,##0.00")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@producto.Id" class="btn btn-warning">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@producto.Id" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination">
+                <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { searchString = Model.SearchString, pageSize = Model.PageSize, pageNumber = Model.PageNumber - 1 })">Anterior</a>
+                </li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { searchString = Model.SearchString, pageSize = Model.PageSize, pageNumber = i })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.PageNumber == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { searchString = Model.SearchString, pageSize = Model.PageSize, pageNumber = Model.PageNumber + 1 })">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
+                            </xmp>
+                        </div>
+
+                    </section>
+
+                    <br>
+                    <hr>
+                    <!-- Autenticación y Registro de Usuarios -->
+                    <section id="usuarios">
+                        <div class="text-center bg-secondary rounded shadow p-2" style="--bs-bg-opacity: .6;">
+                            <h5 class="section-title text-white">🔐Registro y Autenticación de Usuarios en ASP.NET Core MVC - Paso a Paso 🚀</h5>
+                            <a href="https://www.youtube.com/watch?v=zno2aNP-N5A" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube"></i> Ver tutorial en YouTube
+                            </a>
+                        </div>
+                        <br>
+                        <h2 class="section-title">Registro y Autenticación de Usuarios</h2>
+                        <p>En este apartado, implementarenos la autenticación y el registro de usuarios en nuestra aplicación ASP.NET Core MVC. 
+                            Utilizaremos Identity, que es un sistema de autenticación y autorización para aplicaciones ASP.NET Core.
+                            Identity proporciona una forma sencilla de manejar el registro, inicio de sesión, recuperación de contraseñas y más.
+                        </p>
+                        <h3 class="section-title">Bibliotecas y Dependencias</h3>  
+                        <p>Para implementar la autenticación y el registro de usuarios, utilizaremos las siguientes bibliotecas:</p>
+                        <ul>
+                            <li><strong>Microsoft.AspNetCore.Identity.EntityFrameworkCore</strong>: Proporciona la funcionalidad de Identity para 
+                                Entity Framework Core. Esto permite a las aplicaciones ASP.NET Core manejar usuarios, roles, contraseñas y otros 
+                                aspectos de seguridad de forma más eficiente y segura, aprovechando las capacidades de Entity Framework Core para 
+                                la persistencia de datos. 
+                            </li>
+                            <li><strong>BCrypt.Net-Core</strong>: Implementa el cifrado de contraseñas utilizando el algoritmo BCrypt. Es un componente 
+                                de ASP.NET Core, se utiliza principalmente para el hash (algoritmo matemático) de contraseñas de manera segura y eficiente. 
+                                Este algoritmo de hash, basado en Blowfish (algoritmo de cifrado de bloques simétrico), es ampliamente reconocido por su resistencia a ataques de fuerza bruta y ataques
+                                de diccionario debido a su naturaleza intrínsecamente lenta. En ASP.NET Core, facilita la protección de las contraseñas 
+                                almacenadas en base de datos, mejorando la seguridad de la aplicación. 
+                            </li>
+                        </ul> 
+                        
+                        <hr>
+                        <h4><strong>Creando el Modelo de datos</strong></h4>            
+                        <h5>El archivo <strong>ApplicationUser.cs</strong></h5>
+                        <p>
+                            El archivo <strong>ApplicationUser.cs</strong> define un modelo de usuario personalizado que hereda de 
+                            <strong>IdentityUser</strong>. Este modelo se utiliza para representar a los usuarios en la base de datos 
+                            y puede incluir propiedades adicionales según las necesidades de la aplicación.
+                        </p>
+
+                        <br>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using Microsoft.AspNetCore.Identity;
+using System;
+
+namespace ApplicacionWeb.Models
+{
+    public class ApplicationUser : IdentityUser
+    {
+        public string Nombre { get; set; }
+        public DateTime FechaRegistro { get; set; }
+    }
+}
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <h5>El archivo <strong>RegisterViewModel.cs</strong></h5>
+                        <p>
+                            El archivo <strong>RegisterViewModel.cs</strong> define un modelo de vista que se utiliza para el registro de usuarios. 
+                            Este modelo contiene las propiedades necesarias para capturar la información del usuario durante el proceso de registro.
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using System.ComponentModel.DataAnnotations;
+
+namespace ApplicacionWeb.Models
+{
+    public class RegisterViewModel
+    {
+        [Required(ErrorMessage = "El email es requerido")]
+        [EmailAddress(ErrorMessage = "Email no válido")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "El nombre es requerido")]
+        public string Nombre { get; set; }
+
+        [Required(ErrorMessage = "La contraseña es requerida")]
+        [StringLength(100, ErrorMessage = "La {0} debe tener al menos {2} caracteres.", MinimumLength = 8)]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+        public string ConfirmPassword { get; set; }
+    }
+}
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <h5>El archivo <strong>LoginViewModel.cs</strong></h5>
+                        <p>
+                            El archivo <strong>LoginViewModel.cs</strong> define un modelo de vista que se utiliza para el inicio de sesión de usuarios. 
+                            Este modelo contiene las propiedades necesarias para capturar la información del usuario durante el proceso de inicio de sesión.                            
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using System.ComponentModel.DataAnnotations;
+
+namespace ApplicacionWeb.Models
+{
+    public class LoginViewModel
+    {
+        [Required(ErrorMessage = "El email es requerido")]
+        [EmailAddress(ErrorMessage = "Email no válido")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "La contraseña es requerida")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
+    }
+}
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <hr>
+                        <h4><strong>Creando el Controlador</strong></h4>            
+                        <h5>El archivo <strong>AccountController.cs</strong></h5>
+                        <p>
+                            El archivo <strong>AccountController.cs</strong> es el controlador que maneja las acciones relacionadas con la autenticación 
+                            y el registro de usuarios. Este controlador utiliza los modelos de vista definidos anteriormente para capturar la información 
+                            del usuario y realizar las operaciones de autenticación. 
+                            Además, el controlador proporciona la lógica para registrar nuevos usuarios y autenticar al usuario existente.                            
+                        </p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using ApplicacionWeb.Models;
+
+namespace SecureWebApp.Controllers
+{
+    public class AccountController : Controller
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
+        public AccountController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Nombre = model.Nombre,
+                    FechaRegistro = DateTime.UtcNow
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(
+                    model.Email,
+                    model.Password,
+                    model.RememberMe,
+                    lockoutOnFailure: true);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                if (result.IsLockedOut)
+                {
+                    return View("Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Intento de inicio de sesión no válido.");
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+    }
+}
+                            </xmp>
+                        </div>
+                        
+                        <br>
+                        <hr>
+                        <h4><strong>Actualizar el contexto de la base de datos</strong></h4>            
+                        <h5>El archivo <strong>ApplicationDbContext.cs</strong></h5>
+                        <p>
+                            Actualizaremos el archivo <strong>ApplicationDbContext.cs</strong> para heredar de <strong>IdentityDbContext<ApplicationUser></strong>.
+                            Esto permite que el contexto de la base de datos maneje la autenticación y autorización de usuarios utilizando
+                            el modelo de usuario personalizado <strong>ApplicationUser</strong>.
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+using Microsoft.EntityFrameworkCore;
+using ApplicacionWeb.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using ApplicacionWeb.Models;
+
+namespace ApplicacionWeb.Data
+{
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> //1.	Hereda de IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            // Configurar el esquema para PostgreSQL
+            builder.HasDefaultSchema("public");
+
+            // Asegurarse de que las tablas usen el formato correcto para PostgreSQL
+            foreach (var entity in builder.Model.GetEntityTypes())
+            {
+                // Reemplazar puntos por guiones bajos en los nombres de tabla
+                var tableName = entity.GetTableName().Replace(".", "_");
+                entity.SetTableName(tableName);
+            }
+        }
+
+        public DbSet<Producto> Productos { get; set; }
+    }
+}
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <hr>
+                        <h4><strong>Creando las Vistas</strong></h4>
+                        <h5>El archivo <strong>Register.cshtml</strong></h5>
+                        <p>
+                            El archivo <strong>Register.cshtml</strong> es la vista que se utiliza para el registro de nuevos usuarios. 
+                            Esta vista utiliza el modelo de vista <strong>RegisterViewModel</strong> para capturar la información del 
+                            usuario durante el proceso de registro.
+                        </p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+    @model ApplicacionWeb.Models.RegisterViewModel
+
+    <h2>Registro</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-controller="Account" asp-action="Register" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
+                <div class="form-group">
+                    <label asp-for="Nombre"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+            </form>
+        </div>
+    </div> 
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <h5>El archivo <strong>Login.cshtml</strong></h5>
+                        <p>
+                            El archivo <strong>Login.cshtml</strong> es la vista que se utiliza para el inicio de sesión de usuarios. 
+                            Esta vista utiliza el modelo de vista <strong>LoginViewModel</strong> para capturar la información del 
+                            usuario durante el proceso de inicio de sesión.
+                        </p>
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+    @model ApplicacionWeb.Models.LoginViewModel
+
+    <h2>Iniciar Sesión</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-controller="Account" asp-action="Login" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="RememberMe" />
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div> 
+                            </xmp>
+                        </div>
+
+                        <br>
+                        <h5>El archivo <strong>_Layout.cshtml</strong></h5>
+                        <p>
+                            Modificaremos el archivo <strong>_Layout.cshtml</strong> para incluir enlaces a las páginas de registro e inicio de sesión.
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+    <ul class="navbar-nav">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li class="nav-item">
+                <span class="nav-link text-white">Hola, @User.Identity.Name!</span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
+            </li>
+            <li class="nav-item">
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="btn btn-link nav-link text-dark">Cerrar Sesión</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="Account" asp-action="Register">Registro</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="Account" asp-action="Login">Iniciar Sesión</a>
+            </li>
+        }
+    </ul>
+                            </xmp>
+                        </div>
+
+                                                <br>
+                        <h5>El archivo <strong>Program.cs</strong></h5>
+                        <p>
+                            Modificaremos el archivo <strong>Program.cs</strong> para configurar los servicios de Identity y la autenticación de usuarios.
+                        </p>
+
+                        <div class="text-left mt-2 mb-2 text-white rounded shadow p-3 mb-2 bg-dark rounded">
+                            <xmp>
+    builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    // Configuración de contraseña
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireDigit = true;
+
+    // Configuración de bloqueo
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+
+    // Configuración de usuario
+    options.User.RequireUniqueEmail = true;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+.. codigo existente ...
+
+app.UseAuthentication();
+
+.. codigo existente ...
+                            </xmp>
+                        </div>
+
+                                                <br>
+                        <hr>
+                        <h4 class="section-title">Creando la Segunda Migración</h4>
+                        <p>
+                            Después de actualizar el contexto de la base de datos, debemos crear una migración para aplicar los cambios a la base de datos.
+                            Ejecuta el siguiente comando en la consola del administrador de paquetes:
+                        </p>
+                        <ul>
+                            <li>1. Abre la consola de NuGet en Visual Studio (Herramientas > Administrador de paquetes NuGet > Consola del Administrador
+                            de paquetes).</li>
+                            <li>2.	Ejecuta el siguiente comando: <strong>Add-Migration Usuarios</strong></li>
+                            <li>3.	Ejecuta el siguiente comando: <strong>Update-Database</strong></li>
+                        </ul>
+                        <p>
+                            Esto creará una migración llamada "Usuarios" y aplicará los cambios a la base de datos, creando las tablas necesarias para Identity.
+                        </p>
+                    </section>
+                    
+                </div>
+                
                 <!-- Contenido -->
                 <div class="col-lg-3">
                     <div class="sidebar">
@@ -829,6 +2092,10 @@ namespace ApplicacionWeb.Controllers
                                 <li><a href="#proyectoasp" class="nav-link">Proyecto ASP.NET</a></li>
                                 <li><a href="#bootstrap" class="nav-link">Aplicando Bootstrap en ASP.NET</a></li>
                                 <li><a href="#basedatos" class="nav-link">Base de Datos PostgreSQL</a></li>
+                                <li><a href="#migraciones" class="nav-link">Migraciones</a></li>
+                                <li><a href="#crud" class="nav-link">CRUD ASP.NET Core MVC + PostgreSQL</a></li>
+                                <li><a href="#exportar" class="nav-link">Exportar a PDF/Excel + Filtros y Paginación</a></li>
+                                <li><a href="#usuarios" class="nav-link">Registro y Autenticación de Usuarios</a></li>
                             </ul>
                         </div>
                     </div>
